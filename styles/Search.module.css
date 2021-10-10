@@ -1,0 +1,24 @@
+.input {
+    margin: var(--gap) 0;
+    width: 100%;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.close {
+    margin-top: var(--gap);
+}
+
+.list li {
+    list-style: none;
+}
+
+.tag {
+    color: black !important;
+}
+
+.modal {
+    transition: all 0.3s ease;
+}

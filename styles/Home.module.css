@@ -1,0 +1,9 @@
+.nav {
+  padding: 0 var(--gap);
+  max-width: var(--main-content);
+}
+
+.h1 {
+  margin-top: var(--big-gap);
+  margin-bottom: var(--gap);
+}
