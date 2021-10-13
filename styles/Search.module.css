@@ -1,6 +1,9 @@
 .input {
     margin: var(--gap) 0;
     width: 100%;
+    margin-left: var(--chakra-space-6);
+    padding-right: var(--chakra-space-6);
+    padding-top: var(--chakra-space-2)
 }
 
 .input:focus {
@@ -21,4 +24,22 @@
 
 .modal {
     transition: all 0.3s ease;
+    padding: 0 !important;
+    padding-bottom: var(--chakra-space-2) !important;
+}
+
+.item {
+    width: 100%;
+    align-items: start !important;
+    align-content: flex-start !important;
+    padding-inline-start: var(--chakra-space-6);
+    padding-inline-end: var(--chakra-space-6);
+}
+
+.item:focus, .item:hover {
+    background-color: lightgrey;
+}
+
+.icon {
+    padding-left: 0 !important;
 }

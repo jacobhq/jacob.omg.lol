@@ -26,25 +26,21 @@ import {
   TagRightIcon,
   SimpleGrid,
   Text,
-  Hstack
+  Hstack,
+  VStack,
+  ButtonGroup
 } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/hooks'
-import { Home, Eye } from 'react-feather'
-import {
-  Command,
-  CommandInput,
-  CommandList,
-  CommandItem,
-  useCommand
-} from 'colist'
+import { Home, Eye, Command } from 'react-feather'
+import useArrowKeyNavigationHook from "react-arrow-key-navigation-hook";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { isThemesOpen, onThemesOpen, onThemesClose } = useDisclosure()
-  const commandProps = useCommand()
+  const parentRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
 
-  const itemsGlobal = [['Themes', Eye, onThemesOpen], ['Go home'], Home, () => router.push('/')]
+  const itemsGlobal = [{ name: 'Themes', icon: <Eye />, go: onThemesOpen }, { name: 'Go home', icon: <Home />, go: () => router.push('/') }]
 
   useHotkeys('ctrl+k', (e) => { e.preventDefault(); onOpen() })
   useHotkeys('G+H', () => router.push('/'))
@@ -54,24 +50,16 @@ function MyApp({ Component, pageProps }) {
       <Modal isOpen={isOpen} onClose={onClose} className={search.modal}>
         <ModalOverlay />
         <ModalContent className={search.modal}>
-          <ModalBody className={search.modal}>
-            <Command
-              aria-label="Command menu"
-              dialog={false}
-              {...commandProps}
-            >
-              <CommandInput placeholder="Search for something" className={search.input} />
-              <CommandList className={search.list}>
-                {itemsGlobal.map((item) =>
-                  <CommandItem value={item[0]} callback={item[2]}>
-                    <HStack>
-                      <Icon as={item[1]} />
-                      <Text>{item[0]}</Text>
-                    </HStack>
-                  </CommandItem>
-                )}
-              </CommandList>
-            </Command>
+          <ModalBody className={search.modal} ref={parentRef}>
+            <Input className={search.input} placeholder="Search" variant="unstyled" data-cmd />
+            <VStack align="start">
+              {itemsGlobal.map((item, i) => <a key={i} className={search.item} href="#" onClick={item.go} data-cmd>
+                <ButtonGroup>
+                  <IconButton className={search.icon} icon={item.icon} onClick={item.go} variant="ghost" tabIndex="-1" />
+                  <Button variant="ghost" padding="0" isFullWidth tabIndex="-1">{item.name}</Button>
+                </ButtonGroup>
+              </a>)}
+            </VStack>
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -98,7 +86,7 @@ function MyApp({ Component, pageProps }) {
             <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} />
           </Tooltip>
           <Tooltip label="CTRL K" aria-label="Press ctrl and k to open the command menu">
-            <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => onOpen()} aria-label="Open the command menu" />
+            <IconButton variant="ghost" size="lg" icon={<Icon as={Command} boxSize={6} />} onClick={() => onOpen()} aria-label="Open the command menu" />
           </Tooltip>
         </HStack>
         <Component {...pageProps} />
