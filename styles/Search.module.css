@@ -43,3 +43,8 @@
 .icon {
     padding-left: 0 !important;
 }
+
+.noFocus:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}

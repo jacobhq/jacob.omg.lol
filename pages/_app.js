@@ -55,8 +55,8 @@ function MyApp({ Component, pageProps }) {
             <VStack align="start">
               {itemsGlobal.map((item, i) => <a key={i} className={search.item} href="#" onClick={item.go} data-cmd>
                 <ButtonGroup>
-                  <IconButton className={search.icon} icon={item.icon} onClick={item.go} variant="ghost" tabIndex="-1" />
-                  <Button variant="ghost" padding="0" isFullWidth tabIndex="-1">{item.name}</Button>
+                  <IconButton className={search.icon, search.noFocus} icon={item.icon} onClick={item.go} variant="unstyled" tabIndex="-1" />
+                  <Button className={search.noFocus} variant="unstyled" padding="0" isFullWidth tabIndex="-1">{item.name}</Button>
                 </ButtonGroup>
               </a>)}
             </VStack>
