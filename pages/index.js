@@ -4,10 +4,15 @@ import styles from '../styles/Home.module.css'
 import {
   Code,
   Heading,
-  Text
+  Text,
+  Button,
+  useColorMode
 } from "@chakra-ui/react"
+import { useHotkeys } from 'react-hotkeys-hook'
 
 export default function HomePage() {
+  const {toggleColorMode} = useColorMode()
+
   return (
     <div>
       <main>

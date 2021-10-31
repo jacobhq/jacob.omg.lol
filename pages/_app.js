@@ -35,13 +35,8 @@ import {
 import { useDisclosure } from '@chakra-ui/hooks'
 import { Home, Eye, Command, Moon, Sun, Monitor, ArrowLeft } from 'react-feather'
 import useArrowKeyNavigationHook from "react-arrow-key-navigation-hook";
-
-const config = {
-  initialColorMode: "light",
-  useSystemColorMode: false,
-}
-
-const theme = extendTheme({ config })
+import theme from '../utils/theme'
+import useSearch from 'react-hook-search';
 
 function MyApp({ Component, pageProps }) {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -52,24 +47,19 @@ function MyApp({ Component, pageProps }) {
   const themeRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
 
   const itemsGlobal = [{ name: 'Themes', icon: <Eye />, go: goThemes }, { name: 'Go home', icon: <Home />, go: () => router.push('/') }]
-  const themes = [{ name: 'Dark', icon: <Moon />, go: setDark }, { name: 'Light', icon: <Sun />, go: setLight }, { name: 'Back', icon: <ArrowLeft />, go: onThemesClose }]
+  const itemsGlobalAttrs = ['name', 'icon']
+  const [filteredItems, globalSearch, setGlobalSearch] = useSearch(itemsGlobal, itemsGlobalAttrs);
+  const themes = [{ name: 'Dark', icon: <Moon />, go: toggleColorMode }, { name: 'Light', icon: <Sun />, go: toggleColorMode }, { name: 'Back', icon: <ArrowLeft />, go: onThemesClose }]
+  const themesAttrs = ['name', 'icon']
+  const [filteredThemes, themesSearch, setThemesSearch] = useSearch(themes, themesAttrs);
 
   useHotkeys('ctrl+k', (e) => { e.preventDefault(); onOpen() })
   useHotkeys('G+H', () => router.push('/'))
+  useHotkeys('T', () => toggleColorMode)
 
   function goThemes() {
     onClose()
     onThemesOpen()
-  }
-
-  function setDark() {
-    onThemesClose()
-    colorMode === 'dark'
-  }
-
-  function setLight() {
-    onThemesClose()
-    colorMode === 'light'
   }
 
   return (
@@ -78,9 +68,9 @@ function MyApp({ Component, pageProps }) {
         <ModalOverlay />
         <ModalContent className={search.modal}>
           <ModalBody className={search.modal} ref={parentRef}>
-            <Input className={search.input} placeholder="Search" variant="unstyled" data-cmd />
+            <Input className={search.input} value={globalSearch} onChange={setGlobalSearch} placeholder="Search" variant="unstyled" data-cmd />
             <VStack align="start">
-              {itemsGlobal.map((item, i) => <a key={i} className={search.item} href="#" onClick={item.go} data-cmd>
+              {filteredItems.map((item, i) => <a key={i} className={search.item} href="#" onClick={item.go} data-cmd>
                 <ButtonGroup>
                   <IconButton className={search.icon, search.noFocus} icon={item.icon} onClick={item.go} variant="unstyled" tabIndex="-1" />
                   <Button className={search.noFocus} variant="unstyled" padding="0" isFullWidth tabIndex="-1">{item.name}</Button>
@@ -94,9 +84,9 @@ function MyApp({ Component, pageProps }) {
         <ModalOverlay />
         <ModalContent className={search.modal}>
           <ModalBody className={search.modal} ref={themeRef}>
-            <Input className={search.input} placeholder="Choose a theme" variant="unstyled" data-cmd />
+            <Input className={search.input} value={themesSearch} onChange={setThemesSearch} placeholder="Choose a theme" variant="unstyled" data-cmd />
             <VStack align="start">
-              {themes.map((item, i) => <a key={i} className={search.item} href="#" onClick={item.go} data-cmd>
+              {filteredThemes.map((item, i) => <a key={i} className={search.item} href="#" onClick={toggleColorMode} data-cmd>
                 <ButtonGroup>
                   <IconButton className={search.icon, search.noFocus} icon={item.icon} onClick={item.go} variant="unstyled" tabIndex="-1" />
                   <Button className={search.noFocus} variant="unstyled" padding="0" isFullWidth tabIndex="-1">{item.name}</Button>
@@ -113,6 +103,9 @@ function MyApp({ Component, pageProps }) {
           </Tooltip>
           <Tooltip label="CTRL K" aria-label="Press ctrl and k to open the command menu">
             <IconButton variant="ghost" size="lg" icon={<Icon as={Command} boxSize={6} />} onClick={() => onOpen()} aria-label="Open the command menu" />
+          </Tooltip>
+          <Tooltip label="T" aria-label="Press ctrl and k to open the command menu">
+            <IconButton variant="ghost" size="lg" icon={<Icon as={colorMode === "light" ? Moon : Sun} boxSize={6} />} onClick={toggleColorMode} aria-label="Open the command menu" />
           </Tooltip>
         </HStack>
         <Component {...pageProps} />
