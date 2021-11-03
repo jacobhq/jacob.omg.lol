@@ -2,6 +2,7 @@ import { getAllPostIds, getPostData } from '../../lib/posts'
 import Head from 'next/head'
 import Date from '../../components/date'
 import React, {Component} from "react";
+import '../../styles/Post.module.css'
 
 export class Comments extends Component {
 
@@ -13,7 +14,7 @@ export class Comments extends Component {
       script.setAttribute("async", true);
       script.setAttribute("repo", "jacobhq/blog");
       script.setAttribute("issue-term", "pathname");
-      script.setAttribute( "theme", 'photon-dark');
+      script.setAttribute( "theme", 'light');
       anchor.appendChild(script);
   }
 
@@ -26,19 +27,19 @@ export class Comments extends Component {
 
 export default function Post({ postData }) {
   return (
-    <Layout>
+    <>
       <Head>
         <title>{postData.title} - Blog | JacobHQ</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
+        <h1>{postData.title}</h1>
+        <div>
           <Date dateString={postData.date} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} ></div>
         <Comments />
       </article>
-    </Layout>
+    </>
   )
 }
 

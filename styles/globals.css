@@ -27,3 +27,7 @@ main {
   --big-gap: 4rem;
   --main-content: 45rem;
 }
+
+.blur {
+  backdrop-filter: saturate(180%) blur(5px);
+}
