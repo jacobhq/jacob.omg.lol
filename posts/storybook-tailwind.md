@@ -1,0 +1,74 @@
+---
+title: "Create a production-ready storybook with tailwind"
+date: "2021-03-29"
+---
+
+Hello everyone, I recently experienced a lot of pain trying to use tailwind, nextjs and storybook for a project. It took a lot of work (and time) to finally get it to work in production, so I thought I'd share a few tips.
+
+If you have used tailwind, you probably know it uses postcss, which allows for things like treeshaking. Now, I'd used tailwind loads, but I'd usually just followed the installation docs, and left it at that. Anyway, let me show you how I did it.
+
+First, I ran `yarn create next-app`, to bootstrap a nextjs project. Then I installed tailwind by running `yarn add -D tailwindcss@latest postcss@latest autoprefixer@latest`. I know nextjs already has postcss, but I install it anyway, to ensure it's up to date. I didn't use the `pages` directory for this project, so you can clean out all the files in there. You now have a nextjs app with tailwind.
+
+It's a good moment to add your tailwind config, so run `npx tailwindcss init -p` to create a `tailwind.config.js` and a `postcss.config.js`. Now let's run `npx sb init` to create a storybook. Now run `yarn add @storybook/addon-postcss` and add
+```js
+// .storybook/main.js
+{
+  name: '@storybook/addon-postcss',
+  options: {
+    postcssLoaderOptions: {
+      implementation: require('postcss'),
+    },
+  },
+},
+```
+to your `.storybook/main.js` file. The `.storybook/main.js` should now look something like this:
+```js
+// .storybook/main.js
+module.exports = {
+  "stories": [
+    "../stories/**/*.stories.mdx",
+    "../stories/**/*.stories.@(js|jsx|ts|tsx)"
+  ],
+  "addons": [
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    {
+     name: '@storybook/addon-postcss',
+     options: {
+       postcssLoaderOptions: {
+         implementation: require('postcss'),
+       },
+     },
+   },
+  ]
+}
+```
+
+Now head to `stories/assets` and create a `globals.css` file with the following:
+```css
+/* stories/assets/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+Add any custom styles above the `@tailwind` rules. To import your css in dvelopment, add `import '../stories/assets/globals.css'` to your `.storybook/preview.js` file. Now, to import your treeshaken css in production, create a file called `.storybook/preview-head.html` and populate it with:
+```html
+<!-- .storybook/preview-head.html !-->
+<link rel="stylesheet" href="./app.css" />
+```
+Now install `postcss-cli` by running `yarn add postcss-cli`. Now replace the `scripts` section of your `package.json` file with this:
+```json
+"scripts": {
+    "dev": "next dev",
+    "build": "yarn build-css && yarn build-storybook",
+    "start": "next start",
+    "storybook": "start-storybook -s ./stories/assets -p 6006",
+    "build-css": "postcss ./stories/assets/globals.css -o ./stories/assets/app.css",
+    "build-storybook": "build-storybook -s ./stories/assets"
+  },
+```
+Congratulations! You now have a tailwindcss storybook. You can now use [Chromatic](https://chromatic.com/) or a static hosting company to deploy your app. If you use [Vercel](https://vercel.com), I'll show you how to deploy.
+
+Import your repo, and then ensure you have setup your commands like this:
+![Vercel deployment](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jjqrt8fo52mk7xptow83.png)
+Now you are actually done :). Thanks for reading, that was my first article on dev.to! Please follow me on [github](https://github.com/jacobhq) and let me know in the comments what thought!

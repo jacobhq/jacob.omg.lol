@@ -13,7 +13,7 @@ import {
     ButtonGroup,
     useColorMode} from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/hooks'
-import { Home, Eye, Moon, Sun, ArrowLeft } from 'react-feather'
+import { Home, Eye, Moon, Sun, ArrowLeft, PenTool } from 'react-feather'
 import useArrowKeyNavigationHook from "react-arrow-key-navigation-hook";
 import useSearch from 'react-hook-search';
 import { forwardRef, useRef, useImperativeHandle } from 'react'
@@ -33,7 +33,7 @@ const Menu = forwardRef((props, ref) => {
     const parentRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
     const themeRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
 
-    const itemsGlobal = [{ name: 'Themes', icon: <Eye />, go: goThemes }, { name: 'Go home', icon: <Home />, go: () => router.push('/') }]
+    const itemsGlobal = [{ name: 'Writing', icon: <PenTool />, go: () => {router.push('/blog')}}, { name: 'Themes', icon: <Eye />, go: goThemes }, { name: 'Go home', icon: <Home />, go: () => router.push('/') }]
     const itemsGlobalAttrs = ['name', 'icon']
     const [filteredItems, globalSearch, setGlobalSearch] = useSearch(itemsGlobal, itemsGlobalAttrs);
     const themes = [{ name: 'Dark', icon: <Moon />, go: toggleColorMode }, { name: 'Light', icon: <Sun />, go: toggleColorMode }, { name: 'Back', icon: <ArrowLeft />, go: goBack }]
