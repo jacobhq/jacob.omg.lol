@@ -62,7 +62,7 @@ const Menu = forwardRef((props, ref) => {
                     <ModalBody className={search.modal} ref={parentRef}>
                         <Input className={search.input} value={globalSearch} onChange={setGlobalSearch} placeholder="Search" variant="unstyled" data-cmd />
                         <VStack align="start">
-                            {filteredItems.map((item, i) => <a key={i} className={search.item} href="#" onClick={item.go} data-cmd>
+                            {filteredItems.map((item, i) => <a key={i} className={search.item} href="#" onClick={(e) => {e.preventDefault(); item.go()}} data-cmd>
                                 <ButtonGroup>
                                     <IconButton className={search.icon, search.noFocus} icon={item.icon} onClick={item.go} variant="unstyled" tabIndex="-1" />
                                     <Button className={search.noFocus} variant="unstyled" padding="0" isFullWidth tabIndex="-1">{item.name}</Button>
@@ -78,7 +78,7 @@ const Menu = forwardRef((props, ref) => {
                     <ModalBody className={search.modal} ref={themeRef}>
                         <Input className={search.input} value={themesSearch} onChange={setThemesSearch} placeholder="Choose a theme" variant="unstyled" data-cmd />
                         <VStack align="start">
-                            {filteredThemes.map((item, i) => <a key={i} className={search.item} href="#" onClick={item.go} data-cmd>
+                            {filteredThemes.map((item, i) => <a key={i} className={search.item} href="#" onClick={(e) => {e.preventDefault(); item.go()}} data-cmd>
                                 <ButtonGroup>
                                     <IconButton className={search.icon, search.noFocus} icon={item.icon} onClick={item.go} variant="unstyled" tabIndex="-1" />
                                     <Button className={search.noFocus} variant="unstyled" padding="0" isFullWidth tabIndex="-1">{item.name}</Button>
