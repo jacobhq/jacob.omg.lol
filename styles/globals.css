@@ -31,3 +31,40 @@ main {
 .blur {
   backdrop-filter: saturate(180%) blur(5px);
 }
+
+article code {
+  background: #ffffff40 !important;
+  padding: 5px !important;
+  font-size: 0.85rem !important;
+  border-radius: 4px !important;
+}
+
+article pre {
+  background-color: #00000040 !important;
+  padding: 1rem !important;
+  max-width: 100% !important;
+  border-radius: 6px !important;
+  overflow: scroll !important;
+  overflow-y: visible !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+article pre code {
+  background: unset !important;
+  padding: unset !important;
+  font-size: unset !important;
+  border-radius: unset !important;
+  text-shadow: none !important;
+}
+
+article pre::-webkit-scrollbar {
+  display: none;
+}
+
+article pre {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
