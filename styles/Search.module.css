@@ -49,3 +49,12 @@
     box-shadow: none !important;
     outline: none !important;
 }
+
+.kbd {
+    align-self: flex-end;
+}
+
+.p {
+    font-variant: normal;
+    font-weight: normal;
+}
