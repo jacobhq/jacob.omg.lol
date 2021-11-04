@@ -4,7 +4,16 @@ hide_body: false
 fields:
 - type: text
   name: title
-  label: title
+  label: Title
+  description: What is the name of this article
+  config:
+    required: true
 - type: datetime
   name: date
-  label: date
+  label: Date
+  description: When was this article written
+  config:
+    export_format: YYYY-MM-DD
+    date_format: DD/MM/YYYY
+    required: true
+  default: now
