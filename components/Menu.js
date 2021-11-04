@@ -33,7 +33,7 @@ const Menu = forwardRef((props, ref) => {
     const parentRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
     const themeRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
 
-    const itemsGlobal = [{ name: 'Writing', icon: <PenTool />, go: () => {router.push('/blog')}}, { name: 'Themes', icon: <Eye />, go: goThemes }, { name: 'Go home', icon: <Home />, go: () => router.push('/') }]
+    const itemsGlobal = [{ name: 'Writing', icon: <PenTool />, go: () => {router.push('/blog'); onClose()}}, { name: 'Themes', icon: <Eye />, go: goThemes }, { name: 'Go home', icon: <Home />, go: () => {router.push('/'); onClose()} }]
     const itemsGlobalAttrs = ['name', 'icon']
     const [filteredItems, globalSearch, setGlobalSearch] = useSearch(itemsGlobal, itemsGlobalAttrs);
     const themes = [{ name: 'Dark', icon: <Moon />, go: toggleColorMode }, { name: 'Light', icon: <Sun />, go: toggleColorMode }, { name: 'Back', icon: <ArrowLeft />, go: goBack }]
