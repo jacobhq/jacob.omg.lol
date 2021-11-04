@@ -1,11 +1,12 @@
-// Try fix from https://github.com/shadowwalker/next-pwa/issues/288#issuecomment-953799577
-
-const withPWA = require("next-pwa");
-const runtimeCaching = require("next-pwa/cache");
+// Maybe this will work: https://github.com/interclip/interclip-next/commit/50785a15394345a97f1774e052cd2f32650dad1c
+const withPWA = require('next-pwa')
 
 module.exports = withPWA({
+  reactStrictMode: true,
   pwa: {
-    runtimeCaching,
-    buildExcludes: [/middleware-manifest.json$/]
-  },
-});
+    dest: 'public',
+    register: true,
+    runtimeCaching: true,
+    buildExcludes: [/middleware-manifest.json$/],
+  }
+})
