@@ -36,7 +36,7 @@ const Menu = forwardRef((props, ref) => {
     const parentRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
     const themeRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
 
-    const itemsGlobal = [{ name: 'Writing', icon: <PenTool />, kbd: "G+B", go: () => { router.push('/blog'); onClose() } }, { name: 'Themes', icon: <Eye />, kbd: "G+T", go: goThemes }, { name: 'Go home', icon: <Home />, kbd: "G+H", go: () => { router.push('/'); onClose() } }]
+    const itemsGlobal = [{ name: 'Writing', icon: <PenTool />, kbd: "G+B", go: () => { router.push('/blog'); onClose() } }, { name: 'Themes', icon: <Eye />, kbd: "T", go: goThemes }, { name: 'Go home', icon: <Home />, kbd: "G+H", go: () => { router.push('/'); onClose() } }]
     const itemsGlobalAttrs = ['name', 'icon']
     const [filteredItems, globalSearch, setGlobalSearch] = useSearch(itemsGlobal, itemsGlobalAttrs);
     const themes = [{ name: 'Dark', icon: <Moon />, go: toggleColorMode }, { name: 'Light', icon: <Sun />, go: toggleColorMode }, { name: 'Back', icon: <ArrowLeft />, go: goBack }]
@@ -50,7 +50,7 @@ const Menu = forwardRef((props, ref) => {
     useHotkeys('G+H', () => router.push('/'))
     useHotkeys('G+B', () => router.push('/blog'))
     // Open themes modal
-    useHotkeys('G+T', () => onThemesOpen())
+    useHotkeys('T', () => onThemesOpen())
 
     function goThemes() {
         onClose()
