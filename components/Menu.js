@@ -40,8 +40,13 @@ const Menu = forwardRef((props, ref) => {
     const themesAttrs = ['name', 'icon']
     const [filteredThemes, themesSearch, setThemesSearch] = useSearch(themes, themesAttrs);
 
+    // Keybinds
+    // Open menu
     useHotkeys('ctrl+k', (e) => { e.preventDefault(); onOpen() })
+    // Site navigation
     useHotkeys('G+H', () => router.push('/'))
+    useHotkeys('G+B', () => router.push('/blog'))
+    // Open theme modal
     useHotkeys('T', () => toggleColorMode)
 
     function goThemes() {
