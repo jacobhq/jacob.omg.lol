@@ -1,17 +1,11 @@
-import Head from 'next/head'
 import Router from 'next/router'
 import styles from '../styles/Home.module.css'
 import {
     Code,
     Heading,
     Text,
-    Button,
-    useColorMode,
-    ButtonGroup,
-    IconButton
+    Button
 } from "@chakra-ui/react"
-import { useHotkeys } from 'react-hotkeys-hook'
-import { RotateCw } from 'react-feather'
 import { useState } from 'react'
 
 export default function HomePage() {

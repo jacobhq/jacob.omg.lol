@@ -19,7 +19,7 @@ import { useDisclosure } from '@chakra-ui/hooks'
 import { Home, Eye, Moon, Sun, ArrowLeft, PenTool } from 'react-feather'
 import useArrowKeyNavigationHook from "react-arrow-key-navigation-hook";
 import useSearch from 'react-hook-search';
-import { forwardRef, useRef, useImperativeHandle } from 'react'
+import { forwardRef, useImperativeHandle } from 'react'
 
 const Menu = forwardRef((props, ref) => {
     const { colorMode, toggleColorMode } = useColorMode()
