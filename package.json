@@ -20,6 +20,7 @@
     "gray-matter": "^4.0.3",
     "match-sorter": "^6.3.1",
     "next": "^12.0.2",
+    "next-pwa": "^5.4.0",
     "path": "^0.12.7",
     "react": "17.0.2",
     "react-arrow-key-navigation-hook": "^1.0.2",
