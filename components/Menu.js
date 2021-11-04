@@ -50,7 +50,7 @@ const Menu = forwardRef((props, ref) => {
     useHotkeys('G+H', () => router.push('/'))
     useHotkeys('G+B', () => router.push('/blog'))
     // Open themes modal
-    useHotkeys('G+T', () => onThemesOpen)
+    useHotkeys('G+T', () => onThemesOpen())
 
     function goThemes() {
         onClose()
