@@ -7,6 +7,7 @@ import {
     Button
 } from "@chakra-ui/react"
 import { useState } from 'react'
+import Head from "next/head"
 
 export default function HomePage() {
     let [loading, setLoading] = useState(false)
@@ -17,6 +18,10 @@ export default function HomePage() {
     }
 
     return (
+        <>
+        <Head>
+            <title>Offline | JacobHQ</title>
+        </Head>
         <div>
             <main>
                 <Heading className={styles.h1}>You are offline</Heading>
@@ -28,5 +33,6 @@ export default function HomePage() {
                     <Button variant="outline" isLoading={loading} isDisabled={loading} onClick={reload}>Reload</Button>
             </main>
         </div>
+        </>
     )
 }

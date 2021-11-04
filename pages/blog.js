@@ -1,38 +1,17 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { getSortedPostsData } from '../lib/posts'
+import styles from '../styles/Home.module.css'
+import { Heading } from '@chakra-ui/react'
 
 export default function Home({ allPostsData }) {
   return (
       <>
       <Head>
-        <title>siteTitle</title>
+        <title>Blog | JacobHQ</title>
       </Head>
       <section>
-        <h2>Projects</h2>
-        <ul>
-        <li>
-            <a href="https://desica.uk/" target="_blank">
-              Desica
-            </a>
-            <br />
-            <small>
-              Ongoing
-            </small>
-          </li>
-          <li>
-            <a href="https://mac.now.sh/" target="_blank">
-              MacOS Website Clone
-            </a>
-            <br />
-            <small>
-              2021
-            </small>
-          </li>
-        </ul>
-      </section>
-      <section>
-        <h2>Blog</h2>
+      <Heading className={styles.h1}>Blog</Heading>
         <ul>
           {allPostsData.map(({ id, date, title }) => (
             <li key={id}>
