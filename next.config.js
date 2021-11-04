@@ -1,10 +1,11 @@
-const withPWA = require('next-pwa')
+// Try fix from https://github.com/shadowwalker/next-pwa/issues/288#issuecomment-953799577
+
+const withPWA = require("next-pwa");
+const runtimeCaching = require("next-pwa/cache");
 
 module.exports = withPWA({
-  reactStrictMode: true,
   pwa: {
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
-  }
-})
+    runtimeCaching,
+    buildExcludes: [/middleware-manifest.json$/]
+  },
+});
