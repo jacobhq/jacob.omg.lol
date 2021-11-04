@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
   const { colorMode, toggleColorMode } = useColorMode()
   const menuRef = useRef()
 
-  const className = useBreakpointValue({ base: "blur", md: "no-blur" })
+  const className = useBreakpointValue({ base: "ghost", md: "outline" })
 
   return (
     <ChakraProvider theme={theme}>
