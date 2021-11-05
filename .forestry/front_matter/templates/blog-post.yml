@@ -34,3 +34,5 @@ fields:
     export_format: YYYY-MM-DD
     required: true
   default: now
+pages:
+- posts/how-to-set-up-k3s-on-a-raspberry-pi-4.md
