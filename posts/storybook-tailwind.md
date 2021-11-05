@@ -1,5 +1,8 @@
 ---
 title: "Create a production-ready storybook with tailwind"
+description: "Hello everyone, I recently experienced a lot of pain trying to use tailwind, nextjs and storybook for a project."
+author: "Jacob Marshall"
+avatar: "https://avatars.githubusercontent.com/u/29145479"
 date: "2021-03-29"
 ---
 

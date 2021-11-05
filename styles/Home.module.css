@@ -7,3 +7,9 @@
   margin-top: var(--big-gap);
   margin-bottom: var(--gap);
 }
+
+.featured {
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
