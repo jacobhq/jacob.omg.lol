@@ -4,16 +4,33 @@ hide_body: false
 fields:
 - type: text
   name: title
-  label: title
+  label: Title
+  config:
+    required: true
 - type: textarea
   name: description
-  label: description
+  label: Description
+  description: First sentence of post
+  config:
+    required: true
+  default: ''
 - type: text
   name: author
-  label: author
+  label: Author
+  config:
+    required: true
+  default: Jacob Marshall
 - type: text
   name: avatar
-  label: avatar
+  label: Avatar
+  config:
+    required: true
+  default: https://avatars.githubusercontent.com/u/29145479
 - type: datetime
   name: date
-  label: date
+  label: Date
+  config:
+    date_format: DD/MM/YYYY
+    export_format: YYYY-MM-DD
+    required: true
+  default: now
