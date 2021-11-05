@@ -6,6 +6,7 @@ import { Heading, Box, Text, HStack, Avatar, IconButton } from '@chakra-ui/react
 import { ChevronRight } from 'react-feather'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import Date from '../components/date'
 
 export default function Home({ allPostsData }) {
   const router = useRouter()
@@ -25,22 +26,22 @@ export default function Home({ allPostsData }) {
         <Heading className={styles.h1}>Blog</Heading>
         <HStack className={styles.featured}>
           {allPostsData.map(({ id, date, title, description, author, avatar }) => (
-              <Box as="article" maxW="sm" p="5" borderWidth="1px" rounded="md" key={id}>
-                <Box as="time" dateTime={date}></Box>
-                <HStack>
+            <Box as="article" maxW="sm" p="5" borderWidth="1px" rounded="md" key={id}>
+              <Box as="time" dateTime={date}></Box>
+              <HStack>
                 <Heading size="md" my="2" cursor="pointer">
                   <p onClick={() => goPost(`/posts/${id}`)}>
                     {title}
                   </p>
                 </Heading>
                 <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${id}`)} />
-                </HStack>
-                <Text>{description}</Text>
-                <HStack marginTop="15px">
-                  <Avatar name={author} src={avatar} size="xs" />
-                  <Text>{author}</Text>
-                </HStack>
-              </Box>
+              </HStack>
+              <Text>{description}</Text>
+              <HStack marginTop="15px">
+                <Avatar name={author} src={avatar} size="xs" />
+                <Text>{author} • <Date dateString={date} /></Text>
+              </HStack>
+            </Box>
           ))}
         </HStack>
       </section>
