@@ -1,10 +1,10 @@
 ---
-author: Jacob Marshall
-avatar: https://avatars.githubusercontent.com/u/29145479
+author: '"Jacob Marshall"'
+avatar: '"https://avatars.githubusercontent.com/u/29145479"'
 date: 2020-08-22
-title: How to set up k3s on a raspberry pi 4
-description: You'll need to download and install raspberry pi imager from the official
-  website.
+title: '"How to set up k3s on a raspberry pi 4"'
+description: '"You''ll need to download and install raspberry pi imager from the official
+  website."'
 
 ---
 \### Provisioning your pi
