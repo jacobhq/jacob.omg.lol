@@ -53,7 +53,7 @@ article > code {
   padding: 15px !important;
 }
 
-article img {
+article img:not(.chakra-*) {
   margin: auto;
   margin-top: 20px;
   margin-bottom: 25px;
@@ -61,4 +61,8 @@ article img {
 
 article {
   margin-bottom: 100px;
+}
+
+article code > code {
+  background: none !important;
 }
