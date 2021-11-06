@@ -59,7 +59,7 @@ article > code {
   box-shadow: none !important;
 }
 
-article img:not(.chakra-*) {
+article .chakra-image:not(.chakra-avatar) {
   margin: auto;
   margin-top: 20px;
   margin-bottom: 25px;
