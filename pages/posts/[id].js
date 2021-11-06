@@ -2,6 +2,10 @@ import { getAllPostIds, getPostData } from '../../lib/posts'
 import Head from 'next/head'
 import Date from '../../components/date'
 import React, {Component} from "react";
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
+import ReactMarkdown from 'react-markdown'
+import {Heading} from '@chakra-ui/react'
+import styles from '../../styles/Home.module.css'
 
 export class Comments extends Component {
 
@@ -31,11 +35,15 @@ export default function Post({ postData }) {
         <title>{postData.title} - Blog | JacobHQ</title>
       </Head>
       <article>
-        <h1>{postData.title}</h1>
+        <Heading className={styles.h1}>{postData.title}</Heading>
         <div>
           <Date dateString={postData.date} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} ></div>
+        <ReactMarkdown
+          components={ChakraUIRenderer()}
+          children={postData.md}
+          escapeHtml={false}
+        />
         <Comments />
       </article>
     </>
