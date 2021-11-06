@@ -50,7 +50,13 @@ article > code {
   width: 100% !important;
   margin-top: 10px;
   margin-bottom: 15px;
-  padding: 15px !important;
+  padding: 1rem !important;
+  max-width: 100% !important;
+  border-radius: 6px !important;
+  overflow: scroll !important;
+  overflow-y: visible !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 article img:not(.chakra-*) {
