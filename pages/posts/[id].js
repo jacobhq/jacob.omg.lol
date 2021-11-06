@@ -4,8 +4,9 @@ import Date from '../../components/date'
 import React, { Component } from "react";
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import ReactMarkdown from 'react-markdown'
-import { Heading, HStack, VStack, Avatar, Text } from '@chakra-ui/react'
-import styles from '../../styles/Home.module.css'
+import { Heading, HStack, VStack, Avatar, Text, Button } from '@chakra-ui/react'
+import title from '../../styles/Home.module.css'
+import Link from 'next/link'
 
 export class Comments extends Component {
 
@@ -35,7 +36,7 @@ export default function Post({ postData }) {
         <title>{postData.title} - Blog | JacobHQ</title>
       </Head>
       <article>
-        <Heading className={styles.h1}>{postData.title}</Heading>
+        <Heading className={title.h1}>{postData.title}</Heading>
         <HStack>
           <Avatar name={postData.author} src={postData.avatar} size="xs" />
           <Text>
@@ -49,7 +50,9 @@ export default function Post({ postData }) {
           children={postData.md}
           escapeHtml={false}
         />
-        <Comments />
+        <Link href="/">
+          <Button variant="ghost" marginTop="50px">Go home →</Button>
+        </Link>
       </article>
     </>
   )
