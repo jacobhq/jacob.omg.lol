@@ -26,7 +26,7 @@ export default function Home({ allPostsData }) {
         <Heading className={styles.h1}>Blog</Heading>
         <HStack className={styles.featured}>
           {allPostsData.map(({ id, date, title, description, author, avatar }) => (
-            <Box as="article" maxW="sm" p="5" borderWidth="1px" rounded="md" key={id}>
+            <Box as="div" maxW="sm" p="5" borderWidth="1px" rounded="md" key={id}>
               <Box as="time" dateTime={date}></Box>
               <HStack>
                 <Heading size="md" my="2" cursor="pointer">
