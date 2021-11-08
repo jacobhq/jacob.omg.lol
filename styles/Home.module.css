@@ -11,3 +11,7 @@
 .featured {
   width: 100%;
 }
+
+.tableAll {
+  overflow-x: auto;
+}

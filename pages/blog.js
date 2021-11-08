@@ -56,7 +56,7 @@ export default function Home({ allPostsData }) {
           ))}
         </Stack>
       </section>
-      <Box as="section" marginTop="35px" marginBottom="100px">
+      <Box as="section" marginTop="35px" marginBottom="100px" className={styles.tableAll}>
         <Table variant="simple">
           <Thead>
             <Tr>
