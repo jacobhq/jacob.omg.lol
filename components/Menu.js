@@ -13,7 +13,9 @@ import {
     ButtonGroup,
     useColorMode,
     Kbd,
-    HStack
+    HStack,
+    Box,
+    useColorModeValue
 } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/hooks'
 import { Home, Eye, Moon, Sun, ArrowLeft, PenTool } from 'react-feather'
@@ -62,6 +64,8 @@ const Menu = forwardRef((props, ref) => {
         onOpen()
     }
 
+    const hoverColor = useColorModeValue('var(--chakra-colors-blackAlpha-300)', 'var(--chakra-colors-whiteAlpha-300)')
+
     return (
         <>
             <Modal isOpen={isOpen} onClose={onClose} className={search.modal}>
@@ -70,7 +74,7 @@ const Menu = forwardRef((props, ref) => {
                     <ModalBody className={search.modal} ref={parentRef}>
                         <Input className={search.input} value={globalSearch} onChange={setGlobalSearch} placeholder="Search" variant="unstyled" data-cmd />
                         <VStack align="start">
-                            {filteredItems.map((item, i) => <a key={i} className={search.item} href="#" onClick={(e) => { e.preventDefault(); item.go() }} data-cmd>
+                            {filteredItems.map((item, i) => <Box as="a" key={i} className={search.item} href="#" onClick={(e) => { e.preventDefault(); item.go() }} _hover={{backgroundColor: hoverColor}} _focus={{backgroundColor: hoverColor}} data-cmd>
                                 <ButtonGroup className={search.itemWrapper} width="100%">
                                     <IconButton className={search.icon, search.noFocus} icon={item.icon} onClick={item.go} variant="unstyled" tabIndex="-1" />
                                     <Button className={search.noFocus} variant="unstyled" padding="0" isFullWidth tabIndex="-1" width="100%">
@@ -80,7 +84,7 @@ const Menu = forwardRef((props, ref) => {
                                         </HStack>
                                     </Button>
                                 </ButtonGroup>
-                            </a>)}
+                            </Box>)}
                         </VStack>
                     </ModalBody>
                 </ModalContent>
@@ -91,12 +95,12 @@ const Menu = forwardRef((props, ref) => {
                     <ModalBody className={search.modal} ref={themeRef}>
                         <Input className={search.input} value={themesSearch} onChange={setThemesSearch} placeholder="Choose a theme" variant="unstyled" data-cmd />
                         <VStack align="start">
-                            {filteredThemes.map((item, i) => <a key={i} className={search.item} href="#" onClick={(e) => { e.preventDefault(); item.go() }} data-cmd>
+                            {filteredThemes.map((item, i) => <Box as="a" key={i} className={search.item} href="#" onClick={(e) => { e.preventDefault(); item.go() }} _hover={{backgroundColor: hoverColor}} _focus={{backgroundColor: hoverColor}} data-cmd>
                                 <ButtonGroup>
                                     <IconButton className={search.icon, search.noFocus} icon={item.icon} onClick={item.go} variant="unstyled" tabIndex="-1" />
                                     <Button className={search.noFocus} variant="unstyled" padding="0" isFullWidth tabIndex="-1">{item.name}</Button>
                                 </ButtonGroup>
-                            </a>)}
+                            </Box>)}
                         </VStack>
                     </ModalBody>
                 </ModalContent>

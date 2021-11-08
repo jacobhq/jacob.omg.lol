@@ -37,7 +37,6 @@
 }
 
 .item:focus, .item:hover {
-    background-color: lightgrey;
     outline: none;
 }
 
