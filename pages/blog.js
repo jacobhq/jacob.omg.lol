@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { getSortedPostsData } from '../lib/posts'
 import styles from '../styles/Home.module.css'
-import { Heading, Box, Text, HStack, Avatar, IconButton } from '@chakra-ui/react'
+import { Heading, Box, Text, HStack, Stack, Avatar, IconButton, useBreakpointValue } from '@chakra-ui/react'
 import { ChevronRight } from 'react-feather'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
@@ -17,6 +17,8 @@ export default function Home({ allPostsData }) {
     router.push(url)
   }
 
+  const variant = useBreakpointValue({ base: "100%", md: "50%" })
+
   return (
     <>
       <Head>
@@ -24,9 +26,9 @@ export default function Home({ allPostsData }) {
       </Head>
       <section>
         <Heading className={styles.h1}>Blog</Heading>
-        <HStack className={styles.featured}>
+        <Stack direction={["column", "row"]} className={styles.featured} justifyItems="start" align="start">
           {allPostsData.map(({ id, date, title, description, author, avatar }) => (
-            <Box as="div" maxW="sm" p="5" borderWidth="1px" rounded="md" key={id}>
+            <Box as="div" maxW={variant} p="5" borderWidth="1px" rounded="md" key={id} height="100%">
               <Box as="time" dateTime={date}></Box>
               <HStack>
                 <Heading size="md" my="2" cursor="pointer">
@@ -43,7 +45,7 @@ export default function Home({ allPostsData }) {
               </HStack>
             </Box>
           ))}
-        </HStack>
+        </Stack>
       </section>
     </>
   )
