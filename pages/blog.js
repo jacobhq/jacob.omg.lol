@@ -63,15 +63,21 @@ export default function Home({ allPostsData }) {
               <Th>Post name</Th>
               <Th>Description</Th>
               <Th>Author</Th>
+              <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
             {allPostsData.map(({ id, date, title, description, author, avatar }) => (
-            <Tr key={id}>
-              <Td>{title}</Td>
-              <Td>{description}</Td>
-              <Td>{author}</Td>
-            </Tr>
+              <Link key={id} href={`/posts/${id}`}>
+                <Tr cursor="pointer">
+                  <Td>{title}</Td>
+                  <Td>{description}</Td>
+                  <Td>{author}</Td>
+                  <Td>
+                    <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${id}`)} />
+                  </Td>
+                </Tr>
+              </Link>
             ))}
           </Tbody>
         </Table>
