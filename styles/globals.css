@@ -72,3 +72,7 @@ article {
 article code > code {
   background: none !important;
 }
+
+.chakra-avatar {
+  z-index: -1 !important;
+}
