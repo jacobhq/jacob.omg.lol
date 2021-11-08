@@ -16,6 +16,9 @@ export default class Document extends NextDocument {
           <link rel="apple-touch-icon" sizes="152x152" href="/ios/152.png" />
           <link rel="apple-touch-icon" sizes="180x180" href="/ios/180.png" />
           <link rel='manifest' href='/manifest.json' />
+
+          <meta name="theme-color" content="#ffffff" />
+          <meta name="description" content="Greetings, I’m Jacob, a human from planet earth. I’m a developer, creating open source software. Talk with me on Twitter, and code with me on GitHub. I’m coffee powered, so why not buy me a coffee." />
         </Head>
         <body>
           {/* 👇 Here's the script */}
