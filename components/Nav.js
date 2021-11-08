@@ -23,7 +23,7 @@ export default function Nav() {
                     <>
                         <HStack ref={ref}>
                             <Tooltip label="G H" aria-label="Press g and h to go home">
-                                <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} />
+                                <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} aria-label="Go home" />
                             </Tooltip>
                             <Tooltip label="CTRL K" aria-label="Press ctrl and k to open the command menu">
                                 <IconButton variant="ghost" size="lg" icon={<Icon as={Command} boxSize={6} />} onClick={() => menuRef.current.openModal()} aria-label="Open the command menu" />
@@ -31,7 +31,7 @@ export default function Nav() {
                         </HStack>
                         <HStack hidden={inView} position="fixed" left={0} top={0} width="100vw" paddingTop="15px" paddingBottom="15px" paddingLeft="15px" className={variant}>
                             <Tooltip label="G H" aria-label="Press g and h to go home">
-                                <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} />
+                                <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} aria-label="Go home" />
                             </Tooltip>
                             <Tooltip label="CTRL K" aria-label="Press ctrl and k to open the command menu">
                                 <IconButton variant="ghost" size="lg" icon={<Icon as={Command} boxSize={6} />} onClick={() => menuRef.current.openModal()} aria-label="Open the command menu" />
