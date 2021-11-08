@@ -15,3 +15,7 @@
 .tableAll {
   overflow-x: auto;
 }
+
+.goBtn {
+  z-index: -1 !important;
+}

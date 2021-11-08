@@ -45,7 +45,7 @@ export default function Home({ allPostsData }) {
                     {title}
                   </p>
                 </Heading>
-                <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${id}`)} />
+                <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${id}`)} className={styles.goBtn} />
               </HStack>
               <Text>{description}</Text>
               <HStack marginTop="15px">
@@ -74,7 +74,7 @@ export default function Home({ allPostsData }) {
                   <Td>{description}</Td>
                   <Td>{author}</Td>
                   <Td>
-                    <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${id}`)} />
+                    <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${id}`)} className={styles.goBtn} />
                   </Td>
                 </Tr>
               </Link>
