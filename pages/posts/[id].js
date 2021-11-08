@@ -34,6 +34,7 @@ export default function Post({ postData }) {
     <>
       <Head>
         <title>{postData.title} - Blog | JacobHQ</title>
+        <meta name="author" content={postData.author} />
       </Head>
       <article>
         <Heading className={title.h1}>{postData.title}</Heading>
