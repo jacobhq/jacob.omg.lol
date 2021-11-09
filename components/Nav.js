@@ -10,6 +10,7 @@ import { InView } from 'react-intersection-observer';
 import { useRef } from 'react';
 import Menu from './Menu';
 import router from 'next/router';
+import styles from '../styles/Nav.module.css'
 
 export default function Nav() {
     const variant = useBreakpointValue({ base: "blur", lg: "no-blur" })
@@ -21,7 +22,7 @@ export default function Nav() {
             <InView>
                 {({ inView, ref, entry }) => (
                     <>
-                        <HStack ref={ref}>
+                        <HStack ref={ref} className={styles.nav}>
                             <Tooltip label="G H" aria-label="Press g and h to go home">
                                 <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} aria-label="Go home" />
                             </Tooltip>
@@ -29,7 +30,7 @@ export default function Nav() {
                                 <IconButton variant="ghost" size="lg" icon={<Icon as={Command} boxSize={6} />} onClick={() => menuRef.current.openModal()} aria-label="Open the command menu" />
                             </Tooltip>
                         </HStack>
-                        <HStack hidden={inView} position="fixed" left={0} top={0} width="100vw" paddingTop="15px" paddingBottom="15px" paddingLeft="15px" className={variant}>
+                        <HStack hidden={inView} position="fixed" left={0} top={0} width="100vw" paddingTop="15px" paddingBottom="15px" paddingLeft="15px" className={`${variant} ${styles.nav}`}>
                             <Tooltip label="G H" aria-label="Press g and h to go home">
                                 <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} aria-label="Go home" />
                             </Tooltip>
