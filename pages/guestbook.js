@@ -18,6 +18,7 @@ import {
   InputGroup,
   Input,
   InputRightElement,
+  Tooltip
 } from "@chakra-ui/react"
 import Head from 'next/head'
 import { QuestionIcon } from '@chakra-ui/icons'
@@ -27,6 +28,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { useState } from 'react'
 
 const prisma = new PrismaClient()
+const isDev = process.env.NODE_ENV === 'development'
 
 async function sendMsg(msg, author) {
   const res = await fetch('/api/sign', {
@@ -59,10 +61,12 @@ export default function HomePage({ messages, authors }) {
             <Heading size="md" mb="10px">Sign in to leave a message</Heading>
             <Text mb="20px">Use your GitHub account to authenticate securly.</Text>
             <HStack mb="5px">
-              <Button variant="outline" onClick={() => signIn('github')} href="/api/provider/github">Log in with GitHub</Button>
+              <Tooltip isDisabled={isDev} label="I'm still building this feature">
+                <Button variant="outline" onClick={() => signIn('github')} href="/api/provider/github" isDisabled={!isDev}>Log in with GitHub</Button>
+              </Tooltip>
               <Popover>
                 <PopoverTrigger>
-                  <IconButton icon={<QuestionIcon />} variant="ghost" />
+                  <IconButton icon={<QuestionIcon />} variant="ghost" isDisabled={!isDev} />
                 </PopoverTrigger>
                 <PopoverContent>
                   <PopoverArrow />
@@ -75,20 +79,20 @@ export default function HomePage({ messages, authors }) {
             <br />
             <Text fontSize="xs" as="i">Only public infomation, and your email will be used</Text>
           </Box> : <Box p="5" borderWidth="1px" rounded="md">
-          <Heading size="md" mb="10px">Leave a message</Heading>
-          <InputGroup>
-            <Input placeholder="Sign the guestbook" onChange={(e) => setMessage(e.target.value)} />
-            <InputRightElement width="4.5rem">
-              <Button onClick={() => sendMsg(messageValue, authors[0])} h="1.75rem" size="sm">Send</Button>
-            </InputRightElement>            
-          </InputGroup>
+            <Heading size="md" mb="10px">Leave a message</Heading>
+            <InputGroup>
+              <Input placeholder="Sign the guestbook" onChange={(e) => setMessage(e.target.value)} />
+              <InputRightElement width="4.5rem">
+                <Button onClick={() => sendMsg(messageValue, authors[0])} h="1.75rem" size="sm">Send</Button>
+              </InputRightElement>
+            </InputGroup>
           </Box>}
           <Box as="section" padding="5">
             {messages.map(msg => (
-            <Box key={msg.id}>
-              <Heading fontSize="lg">{msg.title}</Heading>
-              <Text color={gray500}>{authors[msg.authorId - 1].name} • {format(new Date(msg.updatedAt), "d MMM yyyy 'at' h:mm bb")}</Text>
-            </Box>
+              <Box key={msg.id}>
+                <Heading fontSize="lg">{msg.title}</Heading>
+                <Text color={gray500}>{authors[msg.authorId - 1].name} • {format(new Date(msg.updatedAt), "d MMM yyyy 'at' h:mm bb")}</Text>
+              </Box>
             ))}
           </Box>
         </main>
