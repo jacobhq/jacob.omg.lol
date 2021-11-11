@@ -18,8 +18,12 @@ import {
 } from "@chakra-ui/react"
 import Head from 'next/head'
 import { QuestionIcon } from '@chakra-ui/icons'
+import { PrismaClient } from '@prisma/client'
+import format from 'date-fns/format'
 
-export default function HomePage() {
+const prisma = new PrismaClient()
+
+export default function HomePage({ messages, authors }) {
   const [gray300, gray400, gray500] = useToken("colors", ["gray.300", "gray.400", "gray.500"])
 
   return (
@@ -54,13 +58,21 @@ export default function HomePage() {
             <Text fontSize="xs" as="i">Only public infomation, and your email will be used</Text>
           </Box>
           <Box as="section" padding="5">
-            <Box>
-              <Heading fontSize="lg">Lorem ipsum</Heading>
-              <Text color={gray500}>Jacob Marshall • 8 October 2020</Text>
+            {messages.map(msg => (
+            <Box key={msg.id}>
+              <Heading fontSize="lg">{msg.title}</Heading>
+              <Text color={gray500}>{authors[msg.id - 1].name} • {format(new Date(msg.updatedAt), "d MMM yyyy 'at' h:mm bb")}</Text>
             </Box>
+            ))}
           </Box>
         </main>
       </div>
     </>
   )
+}
+
+export const getServerSideProps = async ({ req }) => {
+  const messages = await prisma.message.findMany()
+  const authors = await prisma.user.findMany()
+  return { props: { messages, authors } }
 }
