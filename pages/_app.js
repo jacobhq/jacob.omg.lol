@@ -1,4 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react"
+import { SessionProvider } from "next-auth/react"
 import '../styles/globals.css'
 import {
   HStack,
@@ -23,16 +24,18 @@ const config = {
 
 const theme = extendTheme({ config })
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (
-    <ChakraProvider theme={theme}>
-      <main>
-        <Nav />
-        <Component {...pageProps} />
-      </main>
-    </ChakraProvider>
+    <SessionProvider session={session}>
+      <ChakraProvider theme={theme}>
+        <main>
+          <Nav />
+          <Component {...pageProps} />
+        </main>
+      </ChakraProvider>
+    </SessionProvider>
   )
 }
 

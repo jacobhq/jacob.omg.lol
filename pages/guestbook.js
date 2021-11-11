@@ -20,11 +20,13 @@ import Head from 'next/head'
 import { QuestionIcon } from '@chakra-ui/icons'
 import { PrismaClient } from '@prisma/client'
 import format from 'date-fns/format'
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const prisma = new PrismaClient()
 
 export default function HomePage({ messages, authors }) {
   const [gray300, gray400, gray500] = useToken("colors", ["gray.300", "gray.400", "gray.500"])
+  const { data: session } = useSession()
 
   return (
     <>
@@ -37,11 +39,11 @@ export default function HomePage({ messages, authors }) {
           <Text>Leave me (and everyone who visits the site) a nice message...</Text>
           <br />
           <br />
-          <Box p="5" borderWidth="1px" rounded="md">
+          {!session ? <Box p="5" borderWidth="1px" rounded="md">
             <Heading size="md" mb="10px">Sign in to leave a message</Heading>
             <Text mb="20px">Use your GitHub account to authenticate securly.</Text>
             <HStack mb="5px">
-              <Button variant="outline">Log in with GitHub</Button>
+              <Button variant="outline" onClick={() => signIn('github')} href="/api/provider/github">Log in with GitHub</Button>
               <Popover>
                 <PopoverTrigger>
                   <IconButton icon={<QuestionIcon />} variant="ghost" />
@@ -56,7 +58,10 @@ export default function HomePage({ messages, authors }) {
             </HStack>
             <br />
             <Text fontSize="xs" as="i">Only public infomation, and your email will be used</Text>
-          </Box>
+          </Box> : <Box p="5" borderWidth="1px" rounded="md">
+          <Heading size="md" mb="10px">Leave a message</Heading>
+            <Text mb="20px">Use your GitHub account to authenticate securly.</Text>
+          </Box>}
           <Box as="section" padding="5">
             {messages.map(msg => (
             <Box key={msg.id}>
