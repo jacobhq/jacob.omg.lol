@@ -1,16 +1,8 @@
-import { PrismaClient } from '@prisma/client'
-import { getSession } from 'next-auth/react'
+import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
+import prisma from '../../utils/prisma';
 
-const prisma = new PrismaClient()
-
-export default async function handler(req, res) {
-    const session = await getSession({ req });
-
-    if (!session) {
-        res.statusCode = 401
-        res.end('Unauthorized')
-        return
-    }
+export default withApiAuthRequired(async function handler(req, res) {
+    const session = getSession(req, res)
 
     const user = await prisma.user.findMany({
         where: {
@@ -18,14 +10,18 @@ export default async function handler(req, res) {
         }
     })
 
-    if (!user) {
-        await prisma.user.create({
+    console.log('user', user)
+
+    if (user === []) {
+        const createdUser = await prisma.user.create({
             data: {
                 name: session.user.name,
                 email: session.user.email,
-                image: session.user.image,
+                image: session.user.picture,
             }
         })
+
+        console.log('createdUser', createdUser)
     }    
 
     if (req.method !== 'POST') {
@@ -42,6 +38,8 @@ export default async function handler(req, res) {
         }
     })
 
+    console.log(userId)
+
     const data = await prisma.message.create({
         data: {
             title: req.body.msg,
@@ -51,4 +49,4 @@ export default async function handler(req, res) {
     })
 
     return res.status(201)
-}
+})
