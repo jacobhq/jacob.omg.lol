@@ -11,7 +11,6 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
   useToken,
@@ -24,8 +23,9 @@ import Head from 'next/head'
 import { QuestionIcon } from '@chakra-ui/icons'
 import { PrismaClient } from '@prisma/client'
 import format from 'date-fns/format'
-import { useSession, signIn, signOut } from "next-auth/react"
 import { useState } from 'react'
+import { useUser } from '@auth0/nextjs-auth0';
+import Link from 'next/link'
 
 const prisma = new PrismaClient()
 const isDev = process.env.NODE_ENV === 'development'
@@ -42,7 +42,7 @@ async function sendMsg(msg, author) {
 
 export default function HomePage({ messages, authors }) {
   const [gray300, gray400, gray500] = useToken("colors", ["gray.300", "gray.400", "gray.500"])
-  const { data: session } = useSession()
+  const { user: session, error, isLoading } = useUser();
   const [messageValue, setMessage] = useState("")
   console.log(authors)
 
@@ -62,7 +62,9 @@ export default function HomePage({ messages, authors }) {
             <Text mb="20px">Use your GitHub account to authenticate securly.</Text>
             <HStack mb="5px">
               <Tooltip isDisabled={isDev} label="I'm still building this feature">
-                <Button variant="outline" onClick={() => signIn('github')} href="/api/provider/github" isDisabled={!isDev}>Log in with GitHub</Button>
+                <Link href="/api/auth/login">
+                  <Button variant="outline" isDisabled={!isDev} isLoading={isLoading}>Log in with GitHub</Button>
+                </Link>
               </Tooltip>
               <Popover>
                 <PopoverTrigger>
