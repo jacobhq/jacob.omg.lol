@@ -26,7 +26,7 @@ import format from 'date-fns/format'
 import { useState } from 'react'
 import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link'
-import prisma from '../../utils/prisma';
+import prisma from '../utils/prisma';
 
 const isDev = process.env.NODE_ENV === 'development'
 
