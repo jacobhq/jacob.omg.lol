@@ -18,7 +18,7 @@ import {
     useColorModeValue
 } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/hooks'
-import { Home, Eye, Moon, Sun, ArrowLeft, PenTool, Book } from 'react-feather'
+import { Home, Eye, Moon, Sun, ArrowLeft, PenTool, Book, Code } from 'react-feather'
 import useArrowKeyNavigationHook from "react-arrow-key-navigation-hook";
 import useSearch from 'react-hook-search';
 import { forwardRef, useImperativeHandle } from 'react'
@@ -35,15 +35,20 @@ const Menu = forwardRef((props, ref) => {
     }));
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { isOpen: isThemesOpen, onOpen: onThemesOpen, onClose: onThemesClose } = useDisclosure()
+    const { isOpen: isProjectsOpen, onOpen: onProjectsOpen, onClose: onProjectsClose } = useDisclosure()
     const parentRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
     const themeRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
+    const projectRef = useArrowKeyNavigationHook({ selectors: "[data-cmd]" });
 
-    const itemsGlobal = [{ name: 'Writing', icon: <PenTool />, kbd: "G+B", go: () => { router.push('/blog'); onClose() } }, { name: 'Guestbook', icon: <Book />, kbd: "L+M", go: () => { router.push('/guestbook'); onClose() } }, { name: 'Themes', icon: <Eye />, kbd: "T", go: goThemes }, { name: 'Go home', icon: <Home />, kbd: "G+H", go: () => { router.push('/'); onClose() } }]
+    const itemsGlobal = [{ name: 'Writing', icon: <PenTool />, kbd: "G+B", go: () => { router.push('/blog'); onClose() } }, { name: 'Guestbook', icon: <Book />, kbd: "L+M", go: () => { router.push('/guestbook'); onClose() } }, { name: 'Projects', icon: <Code />, kbd: "P", go: goProjects }, { name: 'Themes', icon: <Eye />, kbd: "T", go: goThemes }, { name: 'Go home', icon: <Home />, kbd: "G+H", go: () => { router.push('/'); onClose() } }]
     const itemsGlobalAttrs = ['name', 'icon']
     const [filteredItems, globalSearch, setGlobalSearch] = useSearch(itemsGlobal, itemsGlobalAttrs);
     const themes = [{ name: 'Dark', icon: <Moon />, go: toggleColorMode }, { name: 'Light', icon: <Sun />, go: toggleColorMode }, { name: 'Back', icon: <ArrowLeft />, go: goBack }]
     const themesAttrs = ['name', 'icon']
     const [filteredThemes, themesSearch, setThemesSearch] = useSearch(themes, themesAttrs);
+    const projects = [{ name: 'Dark', icon: <Moon />, go: toggleColorMode }, { name: 'Light', icon: <Sun />, go: toggleColorMode }, { name: 'Back', icon: <ArrowLeft />, go: goBack }]
+    const projectsAttrs = ['name', 'icon']
+    const [filteredProjects, projectsSearch, setProjectsSearch] = useSearch(themes, themesAttrs);
 
     // Keybinds
     // Open menu
@@ -53,15 +58,22 @@ const Menu = forwardRef((props, ref) => {
     useHotkeys('G+B', () => router.push('/blog'))
     useHotkeys('L+M', () => router.push('/guestbook'))
     // Open themes modal
-    useHotkeys('T', () => onThemesOpen())
+    useHotkeys('T', (e) => {e.preventDefault(); onThemesOpen()})
+    useHotkeys('P', (e) => {e.preventDefault(); onProjectsOpen()})
 
     function goThemes() {
         onClose()
         onThemesOpen()
     }
 
+    function goProjects() {
+        onClose()
+        onProjectsOpen()
+    }
+
     function goBack() {
         onThemesClose()
+        onProjectsClose()
         onOpen()
     }
 
@@ -97,6 +109,22 @@ const Menu = forwardRef((props, ref) => {
                         <Input className={search.input} value={themesSearch} onChange={setThemesSearch} placeholder="Choose a theme" variant="unstyled" data-cmd />
                         <VStack align="start">
                             {filteredThemes.map((item, i) => <Box as="a" key={i} className={search.item} href="#" onClick={(e) => { e.preventDefault(); item.go() }} _hover={{backgroundColor: hoverColor}} _focus={{backgroundColor: hoverColor}} data-cmd>
+                                <ButtonGroup>
+                                    <IconButton className={search.icon, search.noFocus} icon={item.icon} onClick={item.go} variant="unstyled" tabIndex="-1" />
+                                    <Button className={search.noFocus} variant="unstyled" padding="0" isFullWidth tabIndex="-1">{item.name}</Button>
+                                </ButtonGroup>
+                            </Box>)}
+                        </VStack>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
+            <Modal isOpen={isProjectsOpen} onClose={onProjectsClose}>
+                <ModalOverlay />
+                <ModalContent className={search.modal}>
+                    <ModalBody className={search.modal} ref={projectRef}>
+                        <Input className={search.input} value={projectsSearch} onChange={setProjectsSearch} placeholder="Search my projects" variant="unstyled" data-cmd />
+                        <VStack align="start">
+                            {filteredProjects.map((item, i) => <Box as="a" key={i} className={search.item} href="#" onClick={(e) => { e.preventDefault(); item.go() }} _hover={{backgroundColor: hoverColor}} _focus={{backgroundColor: hoverColor}} data-cmd>
                                 <ButtonGroup>
                                     <IconButton className={search.icon, search.noFocus} icon={item.icon} onClick={item.go} variant="unstyled" tabIndex="-1" />
                                     <Button className={search.noFocus} variant="unstyled" padding="0" isFullWidth tabIndex="-1">{item.name}</Button>
