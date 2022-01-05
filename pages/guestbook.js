@@ -27,6 +27,7 @@ import { useState } from 'react'
 import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link'
 import prisma from '../utils/prisma';
+import Router from 'next/router'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -40,11 +41,11 @@ async function sendMsg(msg, author) {
   })
 }
 
-export default function HomePage({ messages, authors }) {
+export default function HomePage({ messages }) {
   const [gray300, gray400, gray500] = useToken("colors", ["gray.300", "gray.400", "gray.500"])
-  const { user: session, error, isLoading } = useUser();
+  const { user: session, error, isLoading: isUserLoading } = useUser();
   const [messageValue, setMessage] = useState("")
-  console.log(authors)
+  let [isLoading, setIsLoading] = useState(false)
 
   return (
     <>
@@ -56,19 +57,18 @@ export default function HomePage({ messages, authors }) {
           <Heading className={styles.h1}>Guestbook</Heading>
           <Text>Leave me (and everyone who visits the site) a nice message...</Text>
           <br />
-          <br />
           {!session ? <Box p="5" borderWidth="1px" rounded="md">
             <Heading size="md" mb="10px">Sign in to leave a message</Heading>
             <Text mb="20px">Use your GitHub account to authenticate securly.</Text>
             <HStack mb="5px">
-              <Tooltip isDisabled={isDev} label="I'm still building this feature">
+              <Tooltip label="I'm still building this feature">
                 <Link href="/api/auth/login">
-                  <Button variant="outline" isDisabled={!isDev} isLoading={isLoading}>Log in with GitHub</Button>
+                  <Button variant="outline" isLoading={isUserLoading}>Log in with GitHub</Button>
                 </Link>
               </Tooltip>
               <Popover>
                 <PopoverTrigger>
-                  <IconButton icon={<QuestionIcon />} variant="ghost" isDisabled={!isDev} />
+                  <IconButton icon={<QuestionIcon />} variant="ghost" />
                 </PopoverTrigger>
                 <PopoverContent>
                   <PopoverArrow />
@@ -85,15 +85,16 @@ export default function HomePage({ messages, authors }) {
             <InputGroup>
               <Input placeholder="Sign the guestbook" onChange={(e) => setMessage(e.target.value)} />
               <InputRightElement width="4.5rem">
-                <Button onClick={() => sendMsg(messageValue, session.nickname)} h="1.75rem" size="sm">Send</Button>
+                <Button onClick={() => {sendMsg(messageValue, session.nickname); setIsLoading(true); Router.reload()}} isLoading={isLoading} h="1.75rem" size="sm">Send</Button>
               </InputRightElement>
             </InputGroup>
           </Box>}
+          <br />
           <Box as="section" padding="5">
-            {messages.map(msg => (
-              <Box key={msg.id}>
+            {messages.reverse().map(msg => (
+              <Box key={msg.id} mb={6}>
                 <Heading fontSize="lg">{msg.title}</Heading>
-                <Text color={gray500}>{messages[msg.id].author} • {format(new Date(msg.updatedAt), "d MMM yyyy 'at' h:mm bb")}</Text>
+                <Text color={gray500}>{msg.author.toString()} • {format(new Date(msg.updatedAt), "d MMM yyyy 'at' h:mm bb")}</Text>
               </Box>
             ))}
           </Box>

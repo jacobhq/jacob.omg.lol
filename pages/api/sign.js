@@ -1,5 +1,8 @@
 import { withApiAuthRequired, getSession } from '@auth0/nextjs-auth0';
 import prisma from '../../utils/prisma';
+var Filter = require('bad-words'),
+
+filter = new Filter();
 
 export default withApiAuthRequired(async function handler(req, res) {
     const session = getSession(req, res)
@@ -14,13 +17,13 @@ export default withApiAuthRequired(async function handler(req, res) {
 
     const data = await prisma.message.create({
         data: {
-            title: req.body.msg,
+            title: filter.clean(req.body.msg),
             author: req.body.author,
             published: true,
         }
     })
 
-    console.log(req.body)
+    console.log(req.body, data)
 
-    return res.status(201)
+    return res.status(201).send(data)
 })
