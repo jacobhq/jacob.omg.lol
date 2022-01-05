@@ -47,6 +47,8 @@ export default function HomePage({ messages }) {
   const [messageValue, setMessage] = useState("")
   let [isLoading, setIsLoading] = useState(false)
 
+  const isGithub = session.sub.includes('github|')
+
   return (
     <>
       <Head>
@@ -85,7 +87,7 @@ export default function HomePage({ messages }) {
             <InputGroup>
               <Input placeholder="Sign the guestbook" onChange={(e) => setMessage(e.target.value)} />
               <InputRightElement width="4.5rem">
-                <Button onClick={() => {sendMsg(messageValue, session.nickname); setIsLoading(true); Router.reload()}} isLoading={isLoading} h="1.75rem" size="sm">Send</Button>
+                <Button onClick={() => {sendMsg(messageValue, isGithub ? session.nickname : session.username); setIsLoading(true); Router.reload()}} isLoading={isLoading} h="1.75rem" size="sm">Send</Button>
               </InputRightElement>
             </InputGroup>
           </Box>}
