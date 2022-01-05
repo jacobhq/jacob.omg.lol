@@ -59,7 +59,7 @@ export default function HomePage({ messages }) {
           <br />
           {!session ? <Box p="5" borderWidth="1px" rounded="md">
             <Heading size="md" mb="10px">Sign in to leave a message</Heading>
-            <Text mb="20px">Use your GitHub account to authenticate securly.</Text>
+            <Text mb="20px">Use your GitHub account to authenticate securely.</Text>
             <HStack mb="5px">
               <Tooltip label="I'm still building this feature">
                 <Link href="/api/auth/login">
