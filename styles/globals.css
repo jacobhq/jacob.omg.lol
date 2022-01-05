@@ -77,3 +77,7 @@ article code > code {
 .chakra-avatar {
   z-index: -1 !important;
 }
+
+br {
+  user-select: none;
+}
