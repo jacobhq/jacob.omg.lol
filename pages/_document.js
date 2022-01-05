@@ -24,6 +24,7 @@ export default class Document extends NextDocument {
           {/* 👇 Here's the script */}
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Main />
+          <script async data-api="/_hive" src="/bee.js"></script>
           <NextScript />
         </body>
       </Html>

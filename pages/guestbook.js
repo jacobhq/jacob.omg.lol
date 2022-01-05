@@ -85,7 +85,7 @@ export default function HomePage({ messages, authors }) {
             <InputGroup>
               <Input placeholder="Sign the guestbook" onChange={(e) => setMessage(e.target.value)} />
               <InputRightElement width="4.5rem">
-                <Button onClick={() => sendMsg(messageValue, authors[0])} h="1.75rem" size="sm">Send</Button>
+                <Button onClick={() => sendMsg(messageValue, session.nickname)} h="1.75rem" size="sm">Send</Button>
               </InputRightElement>
             </InputGroup>
           </Box>}
@@ -93,7 +93,7 @@ export default function HomePage({ messages, authors }) {
             {messages.map(msg => (
               <Box key={msg.id}>
                 <Heading fontSize="lg">{msg.title}</Heading>
-                <Text color={gray500}>{authors[msg.authorId - 1].name} • {format(new Date(msg.updatedAt), "d MMM yyyy 'at' h:mm bb")}</Text>
+                <Text color={gray500}>{messages[msg.id].author} • {format(new Date(msg.updatedAt), "d MMM yyyy 'at' h:mm bb")}</Text>
               </Box>
             ))}
           </Box>
@@ -105,6 +105,5 @@ export default function HomePage({ messages, authors }) {
 
 export const getServerSideProps = async ({ req }) => {
   const messages = await prisma.message.findMany()
-  const authors = await prisma.user.findMany()
-  return { props: { messages, authors } }
+  return { props: { messages } }
 }
