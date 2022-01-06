@@ -77,7 +77,7 @@ export default function HomePage({ messages }) {
                 <Tooltip label="I'm still building this feature">
                   <Link href="/api/auth/login">
                     <Button variant="outline" isLoading={isUserLoading}>
-                      Log in with GitHub
+                      Continue with JHQ ID
                     </Button>
                   </Link>
                 </Tooltip>
