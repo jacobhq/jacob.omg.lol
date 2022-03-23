@@ -52,7 +52,7 @@ const Menu = forwardRef((props, ref) => {
 
     // Keybinds
     // Open menu
-    // useHotkeys('ctrl+k', (e) => { e.preventDefault(); onOpen() })
+    useHotkeys('ctrl+k', (e) => { e.preventDefault(); onOpen() })
     // Site navigation
     useHotkeys('G+H', () => router.push('/'))
     useHotkeys('G+B', () => router.push('/blog'))
