@@ -20,6 +20,8 @@ import {
   Tooltip,
   useToast,
   Spinner,
+  Skeleton,
+  SkeletonText,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { QuestionIcon } from "@chakra-ui/icons";
@@ -116,7 +118,7 @@ export default function HomePage() {
                 />
                 <InputRightElement width="4.5rem">
                   <Button
-                    onClick={() => {sendMsg(messageValue, session.name ? session.name : session.nickname); setIsLoading(true); setTimeout(() => setIsLoading(false), 3000);}}
+                    onClick={() => { sendMsg(messageValue, session.name ? session.name : session.nickname); setIsLoading(true); setTimeout(() => setIsLoading(false), 3000); }}
                     isLoading={isLoading}
                     h="1.75rem"
                     size="sm"
@@ -137,7 +139,18 @@ export default function HomePage() {
                   {format(new Date(msg.updatedAt), "d MMM yyyy 'at' h:mm bb")}
                 </Text>
               </Box>
-            )) : <Spinner />}
+            )) : [...Array(5).keys()].map((i) => (
+              <Box key={i} mb={6}>
+                <Skeleton h={2}>
+                  <Heading fontSize="lg">Lorem ipsum dolor sit amet</Heading>
+                </Skeleton>
+                <SkeletonText>
+                  <Text color={gray500}>
+                    Excepteur sint occaecat cupidatat non proident
+                  </Text>
+                </SkeletonText>
+              </Box>
+            ))}
           </Box>
         </main>
       </div>
