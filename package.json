@@ -44,6 +44,7 @@
     "remark-mdx": "^1.6.22",
     "rooks": "^5.7.2",
     "superjson": "^1.8.0",
+    "swr": "^1.2.2",
     "tabbable": "^5.2.1"
   },
   "devDependencies": {

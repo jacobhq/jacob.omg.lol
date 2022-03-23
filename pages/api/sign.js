@@ -23,7 +23,5 @@ export default withApiAuthRequired(async function handler(req, res) {
         }
     })
 
-    console.log(req.body, data)
-
     return res.status(201).send(data)
 })

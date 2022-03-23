@@ -19,16 +19,15 @@ import {
   InputRightElement,
   Tooltip,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { QuestionIcon } from "@chakra-ui/icons";
-import { PrismaClient } from "@prisma/client";
 import format from "date-fns/format";
 import { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
-import prisma from "../utils/prisma";
-import Router from "next/router";
+import useSWR, { mutate } from 'swr'
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -40,9 +39,10 @@ async function sendMsg(msg, author) {
     },
     method: "POST",
   });
+  mutate('/api/guestbook')
 }
 
-export default function HomePage({ messages }) {
+export default function HomePage() {
   const [gray300, gray400, gray500] = useToken("colors", [
     "gray.300",
     "gray.400",
@@ -52,6 +52,9 @@ export default function HomePage({ messages }) {
   const [messageValue, setMessage] = useState("");
   let [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+
+  const fetcher = (...args) => fetch(...args).then(res => res.json())
+  const { data: messages, error: msgErr } = useSWR('/api/guestbook', fetcher, { refreshInterval: 10000 })
 
   return (
     <>
@@ -113,13 +116,7 @@ export default function HomePage({ messages }) {
                 />
                 <InputRightElement width="4.5rem">
                   <Button
-                    onClick={() =>
-                      toast({
-                        title: `Guestbook is disabled`,
-                        status: "error",
-                        isClosable: true,
-                      })
-                    }
+                    onClick={() => {sendMsg(messageValue, session.name ? session.name : session.nickname); setIsLoading(true); setTimeout(() => setIsLoading(false), 3000);}}
                     isLoading={isLoading}
                     h="1.75rem"
                     size="sm"
@@ -132,7 +129,7 @@ export default function HomePage({ messages }) {
           )}
           <br />
           <Box as="section" padding="5">
-            {messages.reverse().map((msg) => (
+            {messages ? messages.map((msg) => (
               <Box key={msg.id} mb={6}>
                 <Heading fontSize="lg">{msg.title}</Heading>
                 <Text color={gray500}>
@@ -140,15 +137,10 @@ export default function HomePage({ messages }) {
                   {format(new Date(msg.updatedAt), "d MMM yyyy 'at' h:mm bb")}
                 </Text>
               </Box>
-            ))}
+            )) : <Spinner />}
           </Box>
         </main>
       </div>
     </>
   );
 }
-
-export const getServerSideProps = async ({ req }) => {
-  const messages = await prisma.message.findMany();
-  return { props: { messages } };
-};
