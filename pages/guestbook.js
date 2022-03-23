@@ -78,7 +78,7 @@ export default function HomePage() {
               </Text>
               <HStack mb="5px">
                 <Tooltip label="I'm still building this feature">
-                  <Link href="/api/auth/login">
+                  <Link href="/api/auth/login?returnTo=/guestbook">
                     <Button variant="outline" isLoading={isUserLoading}>
                       Continue with JHQ ID
                     </Button>
