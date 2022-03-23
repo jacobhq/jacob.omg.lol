@@ -5,6 +5,7 @@ import {
   extendTheme} from '@chakra-ui/react'
 import Nav from "../components/Nav"
 import { UserProvider } from '@auth0/nextjs-auth0';
+import Stream from "../components/Stream";
 
 const config = {
   initialColorMode: "light",
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     <UserProvider>
       <ChakraProvider theme={theme}>
         <main>
+          <Stream />
           <Nav />
           <Component {...pageProps} />
         </main>

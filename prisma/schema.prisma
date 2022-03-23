@@ -22,3 +22,10 @@ model Message {
   published Boolean  @default(false)
   author    String
 }
+
+model Stream {
+  id        Int      @id @default(autoincrement())
+  title     String?  @db.VarChar(255)
+  videoID   String   @db.VarChar(255)
+  liveNow   Boolean  @default(false)
+}

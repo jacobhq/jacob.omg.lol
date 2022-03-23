@@ -38,8 +38,8 @@ article pre::-webkit-scrollbar {
 }
 
 article pre {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 article code {
@@ -80,4 +80,9 @@ article code > code {
 
 br {
   user-select: none;
+}
+
+.full {
+  height: 100%;
+  width: 100%;
 }
