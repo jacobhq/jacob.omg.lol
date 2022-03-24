@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react"
 import { useState } from 'react'
 import Head from "next/head"
+import Layout from '../components/Layout'
 
 export default function HomePage() {
     let [loading, setLoading] = useState(false)
@@ -23,7 +24,7 @@ export default function HomePage() {
             <title>Offline | JacobHQ</title>
         </Head>
         <div>
-            <main>
+            <Layout>
                 <Heading className={styles.h1}>You are offline</Heading>
                 <Text>It looks like this page hasn't been cached to your device yet. Try visiting when you are online, or reloading this page.</Text>
                 <br />
@@ -31,7 +32,7 @@ export default function HomePage() {
                 <br />
                 <br />
                     <Button variant="outline" isLoading={loading} isDisabled={loading} onClick={reload}>Reload</Button>
-            </main>
+            </Layout>
         </div>
         </>
     )

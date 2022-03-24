@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react"
 import Head from 'next/head'
 import logo from '../public/logo.png'
+import Layout from '../components/Layout'
 
 export default function HomePage() {
     return (
@@ -15,7 +16,7 @@ export default function HomePage() {
                 <title>Welcome to JacobHQ</title>
             </Head>
             <div>
-                <main>
+                <Layout>
                     <Heading className={styles.h1}>Hegarty allow calculator</Heading>
                     <HStack mt="10px" mb="20px">
                         <Avatar name="Jacob Marshall" src='/logo.png' size="xs" />
@@ -25,7 +26,7 @@ export default function HomePage() {
                     </HStack>
                     <hr />
                     <Text></Text>
-                </main>
+                </Layout>
             </div>
         </>
     )
