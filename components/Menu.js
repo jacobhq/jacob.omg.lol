@@ -32,6 +32,7 @@ import {
 import useArrowKeyNavigationHook from "react-arrow-key-navigation-hook";
 import useSearch from "react-hook-search";
 import { forwardRef, useImperativeHandle } from "react";
+import SiteNav from "./SiteNav";
 
 const Menu = forwardRef((props, ref) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -128,10 +129,6 @@ const Menu = forwardRef((props, ref) => {
     e.preventDefault();
     onOpen();
   });
-  // Site navigation
-  useHotkeys("G+H", () => router.push("/"));
-  useHotkeys("G+B", () => router.push("/blog"));
-  useHotkeys("L+M", () => router.push("/guestbook"));
   // Open themes modal
   useHotkeys("T", (e) => {
     e.preventDefault();
@@ -165,6 +162,7 @@ const Menu = forwardRef((props, ref) => {
 
   return (
     <>
+      <SiteNav />
       <Modal isOpen={isOpen} onClose={onClose} className={search.modal}>
         <ModalOverlay />
         <ModalContent className={search.modal}>

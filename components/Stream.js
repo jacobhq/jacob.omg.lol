@@ -10,15 +10,12 @@ const Stream = () => {
 
     const { isOpen, onClose, onOpen } = useDisclosure()
 
-    function handleClose() {
-        onClose()
-        setOpened(false)
-    }
-
     useEffect(() => {
         if (data && !hasOpened) {
-            onOpen()
-            setOpened(true)
+            if (data.err !== "No current streams") {
+                onOpen()
+                setOpened(true)
+            }
         }
     })
 
@@ -34,7 +31,7 @@ const Stream = () => {
                 </ModalBody>
                 <ModalFooter>
                     <ButtonGroup>
-                        <Button variant="ghost" onClick={handleClose}>Close</Button>
+                        <Button variant="ghost" onClick={onClose}>Close</Button>
                         <Link href="/stream">
                             <Button colorScheme="red">Watch stream</Button>
                         </Link>

@@ -9,5 +9,7 @@ export default async function handle(req, res) {
         }
     })
 
+    if (!currentStream) return res.status(200).json({"err": "No current streams"})
+
     return res.status(200).send(currentStream)
 }
