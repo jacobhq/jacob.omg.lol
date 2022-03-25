@@ -30,6 +30,7 @@
     "next": "^12.0.2",
     "next-auth": "^4.0.0-beta.6",
     "next-pwa": "^5.4.0",
+    "nprogress": "^0.2.0",
     "path": "^0.12.7",
     "react": "17.0.2",
     "react-arrow-key-navigation-hook": "^1.0.2",

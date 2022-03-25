@@ -91,3 +91,25 @@ br {
   height: 100vh;
   width: 100vw;
 }
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+
+.chakra-ui-dark #nprogress .bar {
+  background: var(--chakra-colors-whiteAlpha-900);
+}
+
+.chakra-ui-light #nprogress .bar {
+  background: var(--chakra-colors-gray-800);
+}
