@@ -27,6 +27,7 @@ export default function Nav() {
                                 <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} aria-label="Go home" />
                             </Tooltip>
                             <Tooltip label="CTRL K" aria-label="Press ctrl and k to open the command menu">
+                                {/* @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'. */}
                                 <IconButton variant="ghost" size="lg" icon={<Icon as={Command} boxSize={6} />} onClick={() => menuRef.current.openModal()} aria-label="Open the command menu" />
                             </Tooltip>
                         </HStack>
@@ -35,6 +36,7 @@ export default function Nav() {
                                 <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} aria-label="Go home" />
                             </Tooltip>
                             <Tooltip label="CTRL K" aria-label="Press ctrl and k to open the command menu">
+                                {/* @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'. */}
                                 <IconButton variant="ghost" size="lg" icon={<Icon as={Command} boxSize={6} />} onClick={() => menuRef.current.openModal()} aria-label="Open the command menu" />
                             </Tooltip>
                         </HStack>

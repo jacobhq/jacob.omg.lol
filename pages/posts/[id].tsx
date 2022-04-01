@@ -15,6 +15,7 @@ export class Comments extends Component {
     let anchor = document.getElementById("inject-comments-for-uterances");
     script.setAttribute("src", "https://utteranc.es/client.js");
     script.setAttribute("crossorigin", "anonymous");
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'boolean' is not assignable to pa... Remove this comment to see the full error message
     script.setAttribute("async", true);
     script.setAttribute("repo", "jacobhq/blog");
     script.setAttribute("issue-term", "pathname");
@@ -49,6 +50,7 @@ export default function Post({ postData }) {
         <ReactMarkdown
           components={ChakraUIRenderer()}
           children={postData.md}
+          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ components: any; children: any; escapeHtml... Remove this comment to see the full error message
           escapeHtml={false}
         />
         <Link href="/">

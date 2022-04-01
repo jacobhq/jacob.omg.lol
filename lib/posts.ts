@@ -28,6 +28,7 @@ export function getSortedPostsData() {
   })
   // Sort posts by date
   return allPostsData.sort((a, b) => {
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'date' does not exist on type '{ id: stri... Remove this comment to see the full error message
     if (a.date < b.date) {
       return 1
     } else {

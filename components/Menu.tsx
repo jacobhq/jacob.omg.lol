@@ -100,6 +100,7 @@ const Menu = forwardRef((props, ref) => {
   const itemsGlobalAttrs = ["name", "icon"];
   const [filteredItems, globalSearch, setGlobalSearch] = useSearch(
     itemsGlobal,
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string[]' is not assignable to p... Remove this comment to see the full error message
     itemsGlobalAttrs
   );
   const themes = [
@@ -110,6 +111,7 @@ const Menu = forwardRef((props, ref) => {
   const themesAttrs = ["name", "icon"];
   const [filteredThemes, themesSearch, setThemesSearch] = useSearch(
     themes,
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string[]' is not assignable to p... Remove this comment to see the full error message
     themesAttrs
   );
   const projects = [
@@ -120,6 +122,7 @@ const Menu = forwardRef((props, ref) => {
   const projectsAttrs = ["name", "icon"];
   const [filteredProjects, projectsSearch, setProjectsSearch] = useSearch(
     themes,
+    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string[]' is not assignable to p... Remove this comment to see the full error message
     themesAttrs
   );
 
@@ -163,6 +166,7 @@ const Menu = forwardRef((props, ref) => {
   return (
     <>
       <SiteNav />
+      {/* @ts-expect-error ts-migrate(2322) FIXME: Type '{ children: Element[]; isOpen: boolean; onCl... Remove this comment to see the full error message */}
       <Modal isOpen={isOpen} onClose={onClose} className={search.modal}>
         <ModalOverlay />
         <ModalContent className={search.modal}>
@@ -182,6 +186,7 @@ const Menu = forwardRef((props, ref) => {
                   key={i}
                   className={search.item}
                   href="#"
+                  // @ts-expect-error ts-migrate(2322) FIXME: Type '(e: MouseEvent<HTMLDivElement, MouseEvent>) ... Remove this comment to see the full error message
                   onClick={(e) => {
                     e.preventDefault();
                     item.go();
@@ -196,6 +201,7 @@ const Menu = forwardRef((props, ref) => {
                       icon={item.icon}
                       onClick={item.go}
                       variant="unstyled"
+                      // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
                       tabIndex="-1"
                     />
                     <Button
@@ -203,6 +209,7 @@ const Menu = forwardRef((props, ref) => {
                       variant="unstyled"
                       padding="0"
                       isFullWidth
+                      // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
                       tabIndex="-1"
                       width="100%"
                     >
@@ -239,6 +246,7 @@ const Menu = forwardRef((props, ref) => {
                   key={i}
                   className={search.item}
                   href="#"
+                  // @ts-expect-error ts-migrate(2322) FIXME: Type '(e: MouseEvent<HTMLDivElement, MouseEvent>) ... Remove this comment to see the full error message
                   onClick={(e) => {
                     e.preventDefault();
                     item.go();
@@ -253,6 +261,7 @@ const Menu = forwardRef((props, ref) => {
                       icon={item.icon}
                       onClick={item.go}
                       variant="unstyled"
+                      // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
                       tabIndex="-1"
                     />
                     <Button
@@ -260,6 +269,7 @@ const Menu = forwardRef((props, ref) => {
                       variant="unstyled"
                       padding="0"
                       isFullWidth
+                      // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
                       tabIndex="-1"
                     >
                       {item.name}
@@ -290,6 +300,7 @@ const Menu = forwardRef((props, ref) => {
                   key={i}
                   className={search.item}
                   href="#"
+                  // @ts-expect-error ts-migrate(2322) FIXME: Type '(e: MouseEvent<HTMLDivElement, MouseEvent>) ... Remove this comment to see the full error message
                   onClick={(e) => {
                     e.preventDefault();
                     item.go();
@@ -304,6 +315,7 @@ const Menu = forwardRef((props, ref) => {
                       icon={item.icon}
                       onClick={item.go}
                       variant="unstyled"
+                      // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
                       tabIndex="-1"
                     />
                     <Button
@@ -311,6 +323,7 @@ const Menu = forwardRef((props, ref) => {
                       variant="unstyled"
                       padding="0"
                       isFullWidth
+                      // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
                       tabIndex="-1"
                     >
                       {item.name}
