@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import Link from 'next/link'
 
 const Stream = () => {
+    // @ts-expect-error ts-migrate(2556) FIXME: Expected 1-2 arguments, but got 0 or more.
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, error } = useSWR('/api/get-live', fetcher)
     let [hasOpened, setOpened] = useState(false)

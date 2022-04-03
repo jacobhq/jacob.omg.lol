@@ -56,6 +56,7 @@ export default function HomePage() {
   let [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
+  // @ts-expect-error ts-migrate(2556) FIXME: Expected 1-2 arguments, but got 0 or more.
   const fetcher = (...args) => fetch(...args).then(res => res.json())
   const { data: messages, error: msgErr } = useSWR('/api/guestbook', fetcher, { refreshInterval: 10000 })
 
@@ -88,6 +89,7 @@ export default function HomePage() {
               </Tooltip>
               <Popover>
                 <PopoverTrigger>
+                  {/* @ts-expect-error ts-migrate(2741) FIXME: Property '"aria-label"' is missing in type '{ icon... Remove this comment to see the full error message */}
                   <IconButton icon={<QuestionIcon />} variant="ghost" />
                 </PopoverTrigger>
                 <PopoverContent>
@@ -139,6 +141,7 @@ export default function HomePage() {
                 {format(new Date(msg.updatedAt), "d MMM yyyy 'at' h:mm bb")}
               </Text>
             </Box>
+          // @ts-expect-error ts-migrate(2569) FIXME: Type 'IterableIterator<number>' is not an array ty... Remove this comment to see the full error message
           )) : [...Array(5).keys()].map((i) => (
             <Box key={i} mb={6}>
               <Skeleton h={2}>

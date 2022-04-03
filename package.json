@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ts-migrate": "ts-migrate"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.6.1",
@@ -54,6 +55,8 @@
   "devDependencies": {
     "babel-plugin-superjson-next": "^0.4.2",
     "eslint": "8.0.0",
-    "eslint-config-next": "11.1.2"
+    "eslint-config-next": "11.1.2",
+    "ts-migrate": "^0.1.28",
+    "typescript": "^4.6.3"
   }
 }

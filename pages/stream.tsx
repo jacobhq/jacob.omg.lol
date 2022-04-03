@@ -18,6 +18,7 @@ import Link from "next/link";
 import SiteNav from "../components/SiteNav";
 
 const Stream = () => {
+  // @ts-expect-error ts-migrate(2556) FIXME: Expected 1-2 arguments, but got 0 or more.
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error } = useSWR("/api/get-countdown", fetcher);
   let [hasOpened, setOpened] = useState(false);

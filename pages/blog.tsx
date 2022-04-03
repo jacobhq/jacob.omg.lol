@@ -47,6 +47,7 @@ export default function Home({ allPostsData }) {
                       {title}
                     </p>
                   </Heading>
+                  {/* @ts-expect-error ts-migrate(2741) FIXME: Property '"aria-label"' is missing in type '{ vari... Remove this comment to see the full error message */}
                   <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${id}`)} className={styles.goBtn} />
                 </HStack>
                 <Text>{description}</Text>
@@ -76,6 +77,7 @@ export default function Home({ allPostsData }) {
                     <Td>{description}</Td>
                     <Td>{author}</Td>
                     <Td>
+                      {/* @ts-expect-error ts-migrate(2741) FIXME: Property '"aria-label"' is missing in type '{ vari... Remove this comment to see the full error message */}
                       <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${id}`)} className={styles.goBtn} />
                     </Td>
                   </Tr>
