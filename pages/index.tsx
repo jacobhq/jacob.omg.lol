@@ -12,9 +12,14 @@ import {
   useBreakpointValue,
   IconButton,
   useColorModeValue,
-  Skeleton
+  Skeleton,
+  SimpleGrid,
+  Spinner,
+  Center,
+  ButtonGroup,
+  Icon
 } from "@chakra-ui/react"
-import { ChevronRight } from 'react-feather'
+import { ChevronRight, Heart } from 'react-feather'
 import Head from 'next/head'
 import Layout from '../components/Layout'
 import { getSortedPostsData } from '../lib/posts'
@@ -22,6 +27,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Date from '../components/date'
 import useSWR from 'swr'
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 export default function HomePage({ allPostsData }) {
   const router = useRouter()
@@ -31,12 +37,16 @@ export default function HomePage({ allPostsData }) {
     setNav(true)
     router.push(url)
   }
+
   const variant = useBreakpointValue({ base: "100%", md: "50%" })
   const accent = useColorModeValue("blackAlpha.100", "whiteAlpha.100")
 
   // @ts-expect-error ts-migrate(2556) FIXME: Expected 1-2 arguments, but got 0 or more.
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error } = useSWR("/api/get-countdown", fetcher);
+  const { data: tweets, error: tweetsErr } = useSWR("/api/get-tweets", fetcher);
+
+  console.log(tweets)
 
   return (
     <>
@@ -95,6 +105,36 @@ export default function HomePage({ allPostsData }) {
               </Box>
             ))}
           </Stack>
+        </Box>
+        <Box as="section" py={6}>
+          <Heading size="lg" mb={4}>Recent tweets</Heading>
+          <SimpleGrid columns={[1, null, 2]} spacing={3}>
+            {tweets ? tweets.data.map((tweet) =>
+              <Box p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
+                <HStack>
+                  <p>
+                    {tweet.text}
+                  </p>
+                </HStack>
+                <Flex justifyContent="space-between">
+                  <HStack marginTop="15px">
+                    <Avatar name="Jacob Marshall" src="https://pbs.twimg.com/profile_images/1505274218518401030/y12F8yt-_400x400.png" size="xs" />
+                    <Text>Jacob Marshall</Text>
+                  </HStack>
+                  <Flex alignItems="end">
+                    <ButtonGroup size="sm" variant="ghost">
+                      <a href={`https://twitter.com/intent/like?tweet_id=${tweet.id}`} target="_blank" rel="noopener noreferrer">
+                        <IconButton icon={<Icon as={Heart} />} aria-label="Like on twitter" />
+                      </a>
+                      <a href={`https://twitter.com/jhqcat/status/${tweet.id}`} target="_blank" rel="noopener noreferrer">
+                        <IconButton icon={<ExternalLinkIcon />} aria-label="Read on twitter" />
+                      </a>
+                    </ButtonGroup>
+                  </Flex>
+                </Flex>
+              </Box>
+            ) : <Spinner />}
+          </SimpleGrid>
         </Box>
       </Layout>
     </>

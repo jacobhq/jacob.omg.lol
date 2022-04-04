@@ -20,6 +20,7 @@
     "@next/mdx": "^12.0.3",
     "@prisma/client": "^3.4.2",
     "@reach/combobox": "^0.16.1",
+    "axios": "^0.26.1",
     "bad-words": "^3.0.4",
     "chakra-ui-markdown-renderer": "^3.0.1",
     "cmdk": "^0.0.4",
@@ -49,8 +50,7 @@
     "rooks": "^5.7.2",
     "styled-jsx": "^5.0.1",
     "superjson": "^1.8.0",
-    "swr": "^1.2.2",
-    "tabbable": "^5.2.1"
+    "swr": "^1.2.2"
   },
   "devDependencies": {
     "babel-plugin-superjson-next": "^0.4.2",
