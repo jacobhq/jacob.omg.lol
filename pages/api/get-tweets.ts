@@ -1,4 +1,3 @@
-import Twitter from 'twitter-lite';
 import axios from "axios"
 
 export default async function handle (req, res) {
