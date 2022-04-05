@@ -116,8 +116,8 @@ export default function HomePage({ allPostsData }) {
                     {tweet.text}
                   </p>
                 </HStack>
-                <Flex justifyContent="space-between">
-                  <HStack marginTop="15px">
+                <Flex justifyContent="space-between" marginTop={4}>
+                  <HStack>
                     <Avatar name="Jacob Marshall" src="https://pbs.twimg.com/profile_images/1505274218518401030/y12F8yt-_400x400.png" size="xs" />
                     <Text>Jacob Marshall</Text>
                   </HStack>
