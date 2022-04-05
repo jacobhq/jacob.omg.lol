@@ -19,17 +19,20 @@ import {
   ButtonGroup,
   Icon,
   SkeletonText,
-  SkeletonCircle
+  SkeletonCircle,
+  useDisclosure,
+  Collapse
 } from "@chakra-ui/react"
 import { ChevronRight, Heart } from 'react-feather'
 import Head from 'next/head'
 import Layout from '../components/Layout'
 import { getSortedPostsData } from '../lib/posts'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Date from '../components/date'
 import useSWR from 'swr'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
+import Link from 'next/link'
 
 export default function HomePage({ allPostsData }) {
   const router = useRouter()
@@ -48,7 +51,13 @@ export default function HomePage({ allPostsData }) {
   const { data, error } = useSWR("/api/get-countdown", fetcher);
   const { data: tweets, error: tweetsErr } = useSWR("/api/get-tweets", fetcher);
 
-  console.log(tweets)
+  const { isOpen: streamVisible, onOpen: makeStreamVisible } = useDisclosure()
+
+  useEffect(() => {
+    if (data) {
+      if (data.err === "No current streams") makeStreamVisible()
+    }
+  }, [data])
 
   return (
     <>
@@ -59,30 +68,24 @@ export default function HomePage({ allPostsData }) {
         <Box as="section" pb={6}>
           <Box mb={4}>
             <Heading className={styles.h1}>Welcome to JacobHQ</Heading>
-            {data ? data.err !== "No current streams" ? <Badge colorScheme="red" mt={2}>Live now</Badge> : null : <Skeleton>
+            <Collapse in={streamVisible} animateOpacity>
               <Badge colorScheme="red" mt={2}>Live now</Badge>
-            </Skeleton>}
+            </Collapse>
           </Box>
           <Text>Greetings, I’m Jacob, a human from planet earth. I’m a developer, creating open source software. Talk with me on Twitter, and code with me on GitHub. I’m coffee powered, so why not buy me a coffee.</Text>
-          {data ? data.err !== "No current streams" ? <Box bg={accent} p={6} borderRadius={6} mt={3}>
-            <Flex justifyContent="space-between">
-              <Box>
-                <Heading size="sm">I'm live now!</Heading>
-                <Text>Watch my current live stream.</Text>
-              </Box>
-              <Button colorScheme="red">Watch now</Button>
-            </Flex>
-          </Box> : null : <Skeleton>
+          <Collapse in={streamVisible} animateOpacity>
             <Box bg={accent} p={6} borderRadius={6} mt={3}>
               <Flex justifyContent="space-between">
                 <Box>
                   <Heading size="sm">I'm live now!</Heading>
                   <Text>Watch my current live stream.</Text>
                 </Box>
-                <Button colorScheme="red">Watch now</Button>
+                <Link href="/stream">
+                  <Button colorScheme="red">Watch now</Button>
+                </Link>
               </Flex>
             </Box>
-          </Skeleton>}
+          </Collapse>
         </Box>
         <Box as="section" py={6}>
           <Heading size="lg" mb={4}>From the blog</Heading>
