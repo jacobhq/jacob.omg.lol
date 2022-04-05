@@ -16,6 +16,7 @@ import YouTube from "react-youtube";
 import useSWR from "swr";
 import Link from "next/link";
 import SiteNav from "../components/SiteNav";
+import Head from "next/head"
 
 const Stream = () => {
   // @ts-expect-error ts-migrate(2556) FIXME: Expected 1-2 arguments, but got 0 or more.
