@@ -9,6 +9,7 @@ generator client {
 datasource db {
   provider             = "postgresql"
   url                  = env("DATA_PROXY_URL")
+  shadowDatabaseUrl    = env("SHADOW_URL")
   referentialIntegrity = "prisma"
 }
 
