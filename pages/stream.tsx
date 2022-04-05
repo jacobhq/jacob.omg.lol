@@ -38,74 +38,79 @@ const Stream = () => {
   console.log(data ? `${data}, ${error}` : error);
 
   return (
-    <Box bg="gray.800">
-      <SiteNav />
-      <DarkMode>
-        <Box h="100vh" maxW="100vw">
-          <Center h="100%" w="100%">
-            {data ? (
-              data.err !== "No current streams" ? (
-                <YouTube
-                  ref={initialRef}
-                  videoId={data.videoID}
-                  containerClassName="full"
-                  opts={{
-                    width: "100%",
-                    height: "100%",
-                    playerVars: { autoplay: 1 },
-                  }}
-                />
+    <>
+      <Head>
+        <title>Stream - JacobHQ</title>
+      </Head>
+      <Box bg="gray.800">
+        <SiteNav />
+        <DarkMode>
+          <Box h="100vh" maxW="100vw">
+            <Center h="100%" w="100%">
+              {data ? (
+                data.err !== "No current streams" ? (
+                  <YouTube
+                    ref={initialRef}
+                    videoId={data.videoID}
+                    containerClassName="full"
+                    opts={{
+                      width: "100%",
+                      height: "100%",
+                      playerVars: { autoplay: 1 },
+                    }}
+                  />
+                ) : (
+                  <Container textAlign="center" py={10} px={6}>
+                    <Heading as="h2" size="xl" mt={6} mb={2} color="white">
+                      It&apos;s oh so quiet
+                    </Heading>
+                    <Text color={"gray.500"}>
+                      I'm not streaming right now, but a stream will be posted
+                      here when I start!
+                    </Text>
+                    <ButtonGroup mt={8}>
+                      <Link href="https://www.youtube.com/channel/UChXCa0OuD-HYr3QAESK434g">
+                        <Button colorScheme="red">Subscribe on YouTube</Button>
+                      </Link>
+                      <Link href="/">
+                        <Button variant="ghost">Go home</Button>
+                      </Link>
+                    </ButtonGroup>
+                  </Container>
+                )
               ) : (
-                <Container textAlign="center" py={10} px={6}>
-                  <Heading as="h2" size="xl" mt={6} mb={2} color="white">
-                    It&apos;s oh so quiet
-                  </Heading>
-                  <Text color={"gray.500"}>
-                    I'm not streaming right now, but a stream will be posted
-                    here when I start!
-                  </Text>
-                  <ButtonGroup mt={8}>
-                    <Link href="https://www.youtube.com/channel/UChXCa0OuD-HYr3QAESK434g">
-                      <Button colorScheme="red">Subscribe on YouTube</Button>
-                    </Link>
-                    <Link href="/">
-                      <Button variant="ghost">Go home</Button>
-                    </Link>
-                  </ButtonGroup>
-                </Container>
-              )
-            ) : (
-              <Spinner color="white" size="xl" />
-            )}
-          </Center>
-        </Box>
-        <Box p={8}>
-          <ButtonGroup color="white">
-            <Link href="https://www.youtube.com/channel/UChXCa0OuD-HYr3QAESK434g">
-              <Button colorScheme="red">Subscribe on YouTube</Button>
-            </Link>
-            {data ? (
-              data.err !== "No current streams" ? (
-                <Link href={`https://youtu.be/${data && data.videoID}`}>
-                  <Button variant="outline">Watch on YouTube</Button>
-                </Link>
+                <Spinner color="white" size="xl" />
+              )}
+            </Center>
+          </Box>
+          <Box p={8}>
+            <ButtonGroup color="white">
+              <Link href="https://www.youtube.com/channel/UChXCa0OuD-HYr3QAESK434g">
+                <Button colorScheme="red">Subscribe on YouTube</Button>
+              </Link>
+              {data ? (
+                data.err !== "No current streams" ? (
+                  <Link href={`https://youtu.be/${data && data.videoID}`}>
+                    <Button variant="outline">Watch on YouTube</Button>
+                  </Link>
+                ) : (
+                  <Button variant="outline" isDisabled>
+                    Watch on YouTube
+                  </Button>
+                )
               ) : (
-                <Button variant="outline" isDisabled>
+                <Button variant="outline" isLoading>
                   Watch on YouTube
                 </Button>
-              )
-            ) : (
-              <Button variant="outline" isLoading>
-                Watch on YouTube
-              </Button>
-            )}
-            <Link href="/">
-              <Button variant="outline">Go home</Button>
-            </Link>
-          </ButtonGroup>
-        </Box>
-      </DarkMode>
-    </Box>
+              )}
+              <Link href="/">
+                <Button variant="outline">Go home</Button>
+              </Link>
+            </ButtonGroup>
+          </Box>
+        </DarkMode>
+      </Box>
+    </>
   );
 };
 
