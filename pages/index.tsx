@@ -55,7 +55,7 @@ export default function HomePage({ allPostsData }) {
 
   useEffect(() => {
     if (data) {
-      if (data.err === "No current streams") makeStreamVisible()
+      if (data.err !== "No current streams") makeStreamVisible()
     }
   }, [data])
 
