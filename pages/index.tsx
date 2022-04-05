@@ -17,7 +17,9 @@ import {
   Spinner,
   Center,
   ButtonGroup,
-  Icon
+  Icon,
+  SkeletonText,
+  SkeletonCircle
 } from "@chakra-ui/react"
 import { ChevronRight, Heart } from 'react-feather'
 import Head from 'next/head'
@@ -133,7 +135,37 @@ export default function HomePage({ allPostsData }) {
                   </Flex>
                 </Flex>
               </Box>
-            ) : <Spinner />}
+              // @ts-expect-error ts-migrate(2569) FIXME: Type 'IterableIterator<number>' is not an array ty... Remove this comment to see the full error message
+            ) : [...Array(2).keys()].map((i) =>
+              <Box key={i} p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
+                <HStack>
+                  <SkeletonText noOfLines={6}>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                  </SkeletonText>
+                </HStack>
+                <Flex justifyContent="space-between" marginTop={4}>
+                  <HStack>
+                    <SkeletonCircle>
+                      <Avatar name="Jacob Marshall" src="https://pbs.twimg.com/profile_images/1505274218518401030/y12F8yt-_400x400.png" size="xs" />
+                    </SkeletonCircle>
+                    <Skeleton>
+                      <Text>Jacob Marshall</Text>
+                    </Skeleton>
+                  </HStack>
+                  <Flex alignItems="end">
+                    <ButtonGroup size="sm" variant="ghost">
+                      <Skeleton>
+                        <IconButton icon={<Icon as={Heart} />} aria-label="Like on twitter" />
+                      </Skeleton>
+                      <Skeleton>
+                        <IconButton icon={<ExternalLinkIcon />} aria-label="Read on twitter" />
+                      </Skeleton>
+                    </ButtonGroup>
+                  </Flex>
+                </Flex>
+              </Box>)}
           </SimpleGrid>
         </Box>
       </Layout>
