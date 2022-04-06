@@ -21,7 +21,8 @@ import {
   SkeletonText,
   SkeletonCircle,
   useDisclosure,
-  Collapse
+  Collapse,
+  CSSReset
 } from "@chakra-ui/react"
 import { ChevronRight, Heart } from 'react-feather'
 import Head from 'next/head'
@@ -33,6 +34,19 @@ import Date from '../components/date'
 import useSWR from 'swr'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
+
+const theme = {
+  p: props => {
+    const { children } = props;
+    return (<Text>
+      {children}
+    </Text>)
+  },
+};
+
 
 export default function HomePage({ allPostsData }) {
   const router = useRouter()
@@ -117,9 +131,10 @@ export default function HomePage({ allPostsData }) {
             {tweets ? tweets.data.map((tweet) =>
               <Box p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
                 <HStack>
-                  <p>
+                  <CSSReset />
+                  <ReactMarkdown components={ChakraUIRenderer(theme)} remarkPlugins={[remarkGfm]}>
                     {tweet.text}
-                  </p>
+                  </ReactMarkdown>
                 </HStack>
                 <Flex justifyContent="space-between" marginTop={4}>
                   <HStack>
