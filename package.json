@@ -41,6 +41,7 @@
     "react-hook-search": "^1.2.8",
     "react-hotkeys-hook": "^3.4.3",
     "react-intersection-observer": "^8.32.2",
+    "react-linkify": "^1.0.0-alpha",
     "react-livestream": "^1.0.11",
     "react-markdown": "^8.0.2",
     "react-youtube": "^7.14.0",
