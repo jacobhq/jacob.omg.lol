@@ -21,7 +21,8 @@ import {
   SkeletonText,
   SkeletonCircle,
   useDisclosure,
-  Collapse
+  Collapse,
+  Link as ChakraLink
 } from "@chakra-ui/react"
 import { ChevronRight, Heart } from 'react-feather'
 import Head from 'next/head'
@@ -33,6 +34,7 @@ import Date from '../components/date'
 import useSWR from 'swr'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import Link from 'next/link'
+import Linkify from 'react-linkify';
 
 export default function HomePage({ allPostsData }) {
   const router = useRouter()
@@ -116,11 +118,11 @@ export default function HomePage({ allPostsData }) {
           <SimpleGrid columns={[1, null, 2]} spacing={3}>
             {tweets ? tweets.data.map((tweet) =>
               <Box p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
-                <HStack>
-                  <p>
+                <Text>
+                  <Linkify component={ChakraLink} propeties={{target: "_blank"}}>
                     {tweet.text}
-                  </p>
-                </HStack>
+                  </Linkify>
+                </Text>
                 <Flex justifyContent="space-between" marginTop={4}>
                   <HStack>
                     <Avatar name="Jacob Marshall" src="https://pbs.twimg.com/profile_images/1505274218518401030/y12F8yt-_400x400.png" size="xs" />
