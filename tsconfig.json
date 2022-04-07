@@ -17,12 +17,16 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "paths": {
+      "contentlayer/generated": ["./.contentlayer/generated"]
+    }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    ".contentlayer/generated"
   ],
   "exclude": [
     "node_modules"
