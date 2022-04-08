@@ -57,6 +57,7 @@
     "swr": "^1.2.2"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-import-assertions": "^7.16.7",
     "babel-plugin-superjson-next": "^0.4.2",
     "eslint": "8.0.0",
     "eslint-config-next": "11.1.2",

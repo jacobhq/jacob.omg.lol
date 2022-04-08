@@ -1,79 +1,64 @@
-import { getAllPostIds, getPostData } from '../../lib/posts'
 import Head from 'next/head'
-import Date from '../../components/date'
-import React, { Component } from "react";
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
-import ReactMarkdown from 'react-markdown'
-import { Heading, HStack, VStack, Avatar, Text, Button } from '@chakra-ui/react'
-import title from '../../styles/Home.module.css'
 import Link from 'next/link'
-
-export class Comments extends Component {
-
-  componentDidMount() {
-    let script = document.createElement("script");
-    let anchor = document.getElementById("inject-comments-for-uterances");
-    script.setAttribute("src", "https://utteranc.es/client.js");
-    script.setAttribute("crossorigin", "anonymous");
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'boolean' is not assignable to pa... Remove this comment to see the full error message
-    script.setAttribute("async", true);
-    script.setAttribute("repo", "jacobhq/blog");
-    script.setAttribute("issue-term", "pathname");
-    script.setAttribute("theme", 'light');
-    anchor.appendChild(script);
-  }
-
-  render() {
-    return (
-      <div id="inject-comments-for-uterances"></div>
-    );
-  }
-}
-
-export default function Post({ postData }) {
-  return (
-    <>
-      <Head>
-        <title>{postData.title} - Blog | JacobHQ</title>
-        <meta name="author" content={postData.author} />
-      </Head>
-      <article>
-        <Heading className={title.h1}>{postData.title}</Heading>
-        <HStack>
-          <Avatar name={postData.author} src={postData.avatar} size="xs" />
-          <Text>
-            {postData.author} • <Date dateString={postData.date} />
-          </Text>
-        </HStack>
-        <br />
-        <br />
-        <ReactMarkdown
-          components={ChakraUIRenderer()}
-          children={postData.md}
-          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ components: any; children: any; escapeHtml... Remove this comment to see the full error message
-          escapeHtml={false}
-        />
-        <Link href="/">
-          <Button variant="ghost" marginTop="50px">Go home →</Button>
-        </Link>
-      </article>
-    </>
-  )
-}
+import { format, parseISO } from 'date-fns'
+import { allPosts } from 'contentlayer/generated'
+import type { Post } from 'contentlayer/generated'
+import { Heading, HStack, Avatar, Button, Text } from '@chakra-ui/react'
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
+import ReactMarkdown from 'react-markdown'
+import title from '../../styles/Home.module.css'
+import Date from 'components/date'
+import Layout from 'components/Layout'
 
 export async function getStaticPaths() {
-  const paths = getAllPostIds()
+  const paths = allPosts.map((p) => ({ params: { slug: p.slug } }))
   return {
     paths,
-    fallback: false
+    fallback: false,
   }
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id)
+  const post = allPosts.find((post) => post.slug === params.slug)
   return {
     props: {
-      postData
-    }
+      post,
+    },
   }
 }
+
+const PostLayout = ({ post, params }: Post) => {
+  console.log(params)
+  return (
+    <>
+      <Head>
+        <title> - Blog | JacobHQ</title>
+        <meta name="author" content={post.author} />
+      </Head>
+      <Layout>
+        <article>
+          <Heading className={title.h1}>{post.title}</Heading>
+          <HStack>
+            <Avatar name={post.author} src={post.avatar} size="xs" />
+            <Text>
+              {post.author} • <Date dateString={post.date} />
+            </Text>
+          </HStack>
+          <br />
+          <br />
+          <ReactMarkdown
+            components={ChakraUIRenderer()}
+            children={post.body.raw}
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ components: any; children: any; escapeHtml... Remove this comment to see the full error message
+            escapeHtml={false}
+          />
+          <Link href="/">
+            <Button variant="ghost" marginTop="50px">Go home →</Button>
+          </Link>
+        </article>
+      </Layout>
+    </>
+  )
+}
+
+export default PostLayout
