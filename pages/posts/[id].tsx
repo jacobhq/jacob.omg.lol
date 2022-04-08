@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown'
 import { Heading, HStack, VStack, Avatar, Text, Button } from '@chakra-ui/react'
 import title from '../../styles/Home.module.css'
 import Link from 'next/link'
+import Layout from '../../components/Layout';
 
 export class Comments extends Component {
 
@@ -37,26 +38,28 @@ export default function Post({ postData }) {
         <title>{postData.title} - Blog | JacobHQ</title>
         <meta name="author" content={postData.author} />
       </Head>
-      <article>
-        <Heading className={title.h1}>{postData.title}</Heading>
-        <HStack>
-          <Avatar name={postData.author} src={postData.avatar} size="xs" />
-          <Text>
-            {postData.author} • <Date dateString={postData.date} />
-          </Text>
-        </HStack>
-        <br />
-        <br />
-        <ReactMarkdown
-          components={ChakraUIRenderer()}
-          children={postData.md}
-          // @ts-expect-error ts-migrate(2322) FIXME: Type '{ components: any; children: any; escapeHtml... Remove this comment to see the full error message
-          escapeHtml={false}
-        />
-        <Link href="/">
-          <Button variant="ghost" marginTop="50px">Go home →</Button>
-        </Link>
-      </article>
+      <Layout>
+        <article>
+          <Heading className={title.h1}>{postData.title}</Heading>
+          <HStack>
+            <Avatar name={postData.author} src={postData.avatar} size="xs" />
+            <Text>
+              {postData.author} • <Date dateString={postData.date} />
+            </Text>
+          </HStack>
+          <br />
+          <br />
+          <ReactMarkdown
+            components={ChakraUIRenderer()}
+            children={postData.md}
+            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ components: any; children: any; escapeHtml... Remove this comment to see the full error message
+            escapeHtml={false}
+          />
+          <Link href="/">
+            <Button variant="ghost" marginTop="50px">Go home →</Button>
+          </Link>
+        </article>
+      </Layout>
     </>
   )
 }
