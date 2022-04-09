@@ -1,24 +1,24 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { getSortedPostsData } from '../lib/posts'
 import styles from '../styles/Home.module.css'
 import {
   Heading, Box, Text, HStack, Stack, Avatar, IconButton, useBreakpointValue, Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
+  SimpleGrid,
 } from '@chakra-ui/react'
 import { ChevronRight } from 'react-feather'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import Date from '../components/date'
+import DateComponent from '../components/date'
 import Layout from '../components/Layout'
+import { allPosts, Post } from 'contentlayer/generated'
+import { compareAsc, compareDesc, parseISO } from 'date-fns'
 
-export default function Home({ allPostsData }) {
+export default function Home({ posts }: { posts: Post[] }) {
   const router = useRouter()
   let [isNav, setNav] = useState(false)
 
@@ -37,27 +37,27 @@ export default function Home({ allPostsData }) {
       <Layout>
         <section>
           <Heading className={styles.h1}>Blog</Heading>
-          <Stack direction={["column", "row"]} className={styles.featured} justifyItems="start" align="start">
-            {allPostsData.slice(0, 2).map(({ id, date, title, description, author, avatar }) => (
-              <Box as="div" maxW={variant} p="5" borderWidth="1px" rounded="md" key={id} height="100%">
+          <SimpleGrid columns={[1, null, 2]} spacing={3}>
+            {posts.slice(0, 2).map(({ slug, date, title, description, author, avatar }) => (
+              <Box p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
                 <Box as="time" dateTime={date}></Box>
                 <HStack>
                   <Heading size="md" my="2" cursor="pointer">
-                    <p onClick={() => goPost(`/posts/${id}`)}>
+                    <p onClick={() => goPost(`/posts/${slug}`)}>
                       {title}
                     </p>
                   </Heading>
                   {/* @ts-expect-error ts-migrate(2741) FIXME: Property '"aria-label"' is missing in type '{ vari... Remove this comment to see the full error message */}
-                  <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${id}`)} className={styles.goBtn} />
+                  <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${slug}`)} className={styles.goBtn} />
                 </HStack>
                 <Text>{description}</Text>
                 <HStack marginTop="15px">
                   <Avatar name={author} src={avatar} size="xs" />
-                  <Text>{author} • <Date dateString={date} /></Text>
+                  <Text>{author} • <DateComponent dateString={date} /></Text>
                 </HStack>
               </Box>
             ))}
-          </Stack>
+          </SimpleGrid>
         </section>
         <Box as="section" marginTop="35px" marginBottom="100px" className={styles.tableAll}>
           <Table variant="simple">
@@ -70,8 +70,8 @@ export default function Home({ allPostsData }) {
               </Tr>
             </Thead>
             <Tbody>
-              {allPostsData.map(({ id, date, title, description, author, avatar }) => (
-                <Link key={id} href={`/posts/${id}`}>
+              {posts.map(({ slug, date, title, description, author, avatar }) => (
+                <Link key={slug} href={`/posts/${slug}`}>
                   <Tr cursor="pointer">
                     <Td>{title}</Td>
                     <Td>{description}</Td>
@@ -92,10 +92,9 @@ export default function Home({ allPostsData }) {
 }
 
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData
-    }
-  }
+  const posts = allPosts.sort(
+    (a, b) => {
+      return Number(new Date(b.date)) - Number(new Date(a.date))
+    });
+  return { props: { posts } }
 }
