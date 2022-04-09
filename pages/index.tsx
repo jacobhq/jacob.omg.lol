@@ -178,9 +178,6 @@ export default function HomePage({ posts }: { posts: Post[] }) {
 }
 
 export async function getStaticProps() {
-  const posts = allPosts.sort((a, b) => {
-    // @ts-ignore
-    return compareDesc(new Date(a.date), new Date(b.date))
-  })
+  const posts = allPosts
   return { props: { posts } }
 }
