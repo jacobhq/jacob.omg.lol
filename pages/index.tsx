@@ -90,9 +90,9 @@ export default function HomePage({ posts }: { posts: Post[] }) {
         </Box>
         <Box as="section" py={6}>
           <Heading size="lg" mb={4}>From the blog</Heading>
-          <Stack direction={["column", "row"]} className={styles.featured} justifyItems="start" align="start">
+          <SimpleGrid columns={[1, null, 2]} spacing={3}>
             {posts.slice(0, 2).map(({ slug, date, title, description, author, avatar }) => (
-              <Box as="div" maxW={variant} p="5" borderWidth="1px" rounded="md" key={slug} height="100%">
+              <Box p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
                 <Box as="time" dateTime={date}></Box>
                 <HStack>
                   <Heading size="md" my="2" cursor="pointer">
@@ -110,7 +110,7 @@ export default function HomePage({ posts }: { posts: Post[] }) {
                 </HStack>
               </Box>
             ))}
-          </Stack>
+          </SimpleGrid>
         </Box>
         <Box as="section" py={6}>
           <Heading size="lg" mb={4}>Recent tweets</Heading>

@@ -8,6 +8,7 @@ import {
   Tr,
   Th,
   Td,
+  SimpleGrid,
 } from '@chakra-ui/react'
 import { ChevronRight } from 'react-feather'
 import { useState } from 'react'
@@ -36,9 +37,9 @@ export default function Home({ posts }: { posts: Post[] }) {
       <Layout>
         <section>
           <Heading className={styles.h1}>Blog</Heading>
-          <Stack direction={["column", "row"]} className={styles.featured} justifyItems="start" align="start">
+          <SimpleGrid columns={[1, null, 2]} spacing={3}>
             {posts.slice(0, 2).map(({ slug, date, title, description, author, avatar }) => (
-              <Box as="div" maxW={variant} p="5" borderWidth="1px" rounded="md" key={slug} height="100%">
+              <Box p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
                 <Box as="time" dateTime={date}></Box>
                 <HStack>
                   <Heading size="md" my="2" cursor="pointer">
@@ -56,7 +57,7 @@ export default function Home({ posts }: { posts: Post[] }) {
                 </HStack>
               </Box>
             ))}
-          </Stack>
+          </SimpleGrid>
         </section>
         <Box as="section" marginTop="35px" marginBottom="100px" className={styles.tableAll}>
           <Table variant="simple">
