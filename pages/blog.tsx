@@ -12,10 +12,10 @@ import {
 import { ChevronRight } from 'react-feather'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import Date from '../components/date'
+import DateComponent from '../components/date'
 import Layout from '../components/Layout'
 import { allPosts, Post } from 'contentlayer/generated'
-import { compareDesc } from 'date-fns'
+import { compareAsc, compareDesc, parseISO } from 'date-fns'
 
 export default function Home({ posts }: { posts: Post[] }) {
   const router = useRouter()
@@ -52,7 +52,7 @@ export default function Home({ posts }: { posts: Post[] }) {
                 <Text>{description}</Text>
                 <HStack marginTop="15px">
                   <Avatar name={author} src={avatar} size="xs" />
-                  <Text>{author} • <Date dateString={date} /></Text>
+                  <Text>{author} • <DateComponent dateString={date} /></Text>
                 </HStack>
               </Box>
             ))}
@@ -91,6 +91,9 @@ export default function Home({ posts }: { posts: Post[] }) {
 }
 
 export async function getStaticProps() {
-  const posts = allPosts
+  const posts = allPosts.sort(
+    (a, b) => {
+      return Number(new Date(b.date)) - Number(new Date(a.date))
+    });
   return { props: { posts } }
 }

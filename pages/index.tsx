@@ -27,7 +27,7 @@ import Head from 'next/head'
 import Layout from '../components/Layout'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import Date from '../components/date'
+import DateComponent from '../components/date'
 import useSWR from 'swr'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import Link from 'next/link'
@@ -106,7 +106,7 @@ export default function HomePage({ posts }: { posts: Post[] }) {
                 <Text>{description}</Text>
                 <HStack marginTop="15px">
                   <Avatar name={author} src={avatar} size="xs" />
-                  <Text>{author} • <Date dateString={date} /></Text>
+                  <Text>{author} • <DateComponent dateString={date} /></Text>
                 </HStack>
               </Box>
             ))}
@@ -118,7 +118,7 @@ export default function HomePage({ posts }: { posts: Post[] }) {
             {tweets ? tweets.data.map((tweet) =>
               <Box p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
                 <Text>
-                  <Linkify component={ChakraLink} propeties={{target: "_blank"}}>
+                  <Linkify component={ChakraLink} propeties={{ target: "_blank" }}>
                     {tweet.text}
                   </Linkify>
                 </Text>
@@ -178,6 +178,9 @@ export default function HomePage({ posts }: { posts: Post[] }) {
 }
 
 export async function getStaticProps() {
-  const posts = allPosts
+  const posts = allPosts.sort(
+    (a, b) => {
+      return Number(new Date(b.date)) - Number(new Date(a.date))
+    });
   return { props: { posts } }
 }
