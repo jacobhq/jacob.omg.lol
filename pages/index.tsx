@@ -14,8 +14,6 @@ import {
   useColorModeValue,
   Skeleton,
   SimpleGrid,
-  Spinner,
-  Center,
   ButtonGroup,
   Icon,
   SkeletonText,
@@ -27,7 +25,6 @@ import {
 import { ChevronRight, Heart } from 'react-feather'
 import Head from 'next/head'
 import Layout from '../components/Layout'
-import { getSortedPostsData } from '../lib/posts'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Date from '../components/date'
@@ -35,8 +32,10 @@ import useSWR from 'swr'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import Link from 'next/link'
 import Linkify from 'react-linkify';
+import { allPosts, Post } from 'contentlayer/generated'
+import { compareDesc } from 'date-fns'
 
-export default function HomePage({ allPostsData }) {
+export default function HomePage({ posts }: { posts: Post[] }) {
   const router = useRouter()
   let [isNav, setNav] = useState(false)
 
@@ -92,17 +91,17 @@ export default function HomePage({ allPostsData }) {
         <Box as="section" py={6}>
           <Heading size="lg" mb={4}>From the blog</Heading>
           <Stack direction={["column", "row"]} className={styles.featured} justifyItems="start" align="start">
-            {allPostsData.slice(0, 2).map(({ id, date, title, description, author, avatar }) => (
-              <Box as="div" maxW={variant} p="5" borderWidth="1px" rounded="md" key={id} height="100%">
+            {posts.slice(0, 2).map(({ slug, date, title, description, author, avatar }) => (
+              <Box as="div" maxW={variant} p="5" borderWidth="1px" rounded="md" key={slug} height="100%">
                 <Box as="time" dateTime={date}></Box>
                 <HStack>
                   <Heading size="md" my="2" cursor="pointer">
-                    <p onClick={() => goPost(`/posts/${id}`)}>
+                    <p onClick={() => goPost(`/posts/${slug}`)}>
                       {title}
                     </p>
                   </Heading>
                   {/* @ts-expect-error ts-migrate(2741) FIXME: Property '"aria-label"' is missing in type '{ vari... Remove this comment to see the full error message */}
-                  <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${id}`)} className={styles.goBtn} />
+                  <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${slug}`)} className={styles.goBtn} />
                 </HStack>
                 <Text>{description}</Text>
                 <HStack marginTop="15px">
@@ -179,10 +178,9 @@ export default function HomePage({ allPostsData }) {
 }
 
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData
-    }
-  }
+  const posts = allPosts.sort((a, b) => {
+    // @ts-ignore
+    return compareDesc(new Date(a.date), new Date(b.date))
+  })
+  return { props: { posts } }
 }

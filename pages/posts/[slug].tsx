@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { format, parseISO } from 'date-fns'
 import { allPosts } from 'contentlayer/generated'
 import { Post } from 'contentlayer/generated'
 import { Heading, HStack, Avatar, Button, Text, useDisclosure, Tooltip, VStack, Divider } from '@chakra-ui/react'
