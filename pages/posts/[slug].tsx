@@ -2,8 +2,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { format, parseISO } from 'date-fns'
 import { allPosts } from 'contentlayer/generated'
-import type { Post } from 'contentlayer/generated'
-import { Heading, HStack, Avatar, Button, Text } from '@chakra-ui/react'
+import { Post } from 'contentlayer/generated'
+import { Heading, HStack, Avatar, Button, Text, useDisclosure, Tooltip, VStack, Divider } from '@chakra-ui/react'
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import ReactMarkdown from 'react-markdown'
 import title from '../../styles/Home.module.css'
@@ -22,35 +22,42 @@ export async function getStaticProps({ params }) {
   const post = allPosts.find((post) => post.slug === params.slug)
   return {
     props: {
-      post,
-    },
+      post
+    }
   }
 }
 
-const PostLayout = ({ post, params }: Post) => {
-  console.log(params)
+const PostLayout = ({ post }: { post: Post }) => {
+  let { isOpen, onToggle } = useDisclosure()
   return (
     <>
       <Head>
-        <title> - Blog | JacobHQ</title>
+        <title>{post.title} - Blog | JacobHQ</title>
         <meta name="author" content={post.author} />
       </Head>
       <Layout>
         <article>
           <Heading className={title.h1}>{post.title}</Heading>
-          <HStack>
-            <Avatar name={post.author} src={post.avatar} size="xs" />
-            <Text>
-              {post.author} • <Date dateString={post.date} />
-            </Text>
+          <HStack justifyContent="space-between" pt={4}>
+            <HStack>
+              <Avatar name={post.author} src={post.avatar} size="sm" />
+              <VStack spacing={0} alignItems="start">
+                <Text as="strong">
+                  {post.author}
+                </Text>
+                <Text as="small">
+                  <Date dateString={post.date} />
+                </Text>
+              </VStack>
+            </HStack>
+            <Tooltip label={!isOpen ? "Show wordcount" : "Show reading time"}>
+              <Button onClick={onToggle} variant="ghost" size="sm">{!isOpen ? post.readingTime.text : `${post.readingTime.words} words`}</Button>
+            </Tooltip>
           </HStack>
-          <br />
-          <br />
+          <Divider my={4} mb={6} />
           <ReactMarkdown
             components={ChakraUIRenderer()}
             children={post.body.raw}
-            // @ts-expect-error ts-migrate(2322) FIXME: Type '{ components: any; children: any; escapeHtml... Remove this comment to see the full error message
-            escapeHtml={false}
           />
           <Link href="/">
             <Button variant="ghost" marginTop="50px">Go home →</Button>

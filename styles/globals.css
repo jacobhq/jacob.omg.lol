@@ -47,7 +47,7 @@ article code {
   border-radius: 5px !important;
 }
 
-article > code {
+pre > code {
   width: 100% !important;
   margin-top: 10px;
   margin-bottom: 15px;
