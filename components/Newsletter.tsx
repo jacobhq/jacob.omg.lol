@@ -24,7 +24,7 @@ export default function NewsletterCard() {
     const toast = useToast()
 
     return (
-        <Box p="5" borderWidth="1px" rounded="md">
+        <Box p="5" rounded="md" mb={8}>
             <Heading size="md" mb="10px">Subscribe to my newsletter</Heading>
             <Text mb="20px">Join {data ? `the ${data.count}` : "some"} other {data ? data.count === 1 ? "person" : "people" : "people"} who get updates on what I'm working on.</Text>
             <Formik
