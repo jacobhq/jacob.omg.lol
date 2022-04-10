@@ -1,4 +1,5 @@
 import Nav from './Nav'
+import NewsletterCard from './Newsletter'
 import Stream from './Stream'
 
 export default function Layout ({ children }) {
@@ -7,6 +8,7 @@ export default function Layout ({ children }) {
             <Stream />
             <Nav />
             {children}
+            <NewsletterCard />
         </main>
     )
 }
