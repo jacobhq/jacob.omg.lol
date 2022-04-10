@@ -71,9 +71,8 @@ export default function NewsletterCard() {
                                             Subscribe
                                         </Button>
                                     </HStack>
-                                    {session && session.email === field.value && <FormHelperText>Your email was prefilled from your JHQ ID</FormHelperText>}
                                     <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                                    {form.errors.email ? true : false && session ? !session.email : true && <FormHelperText>There are currently {data ? `the ${data.count}` : "Some"} subscribers</FormHelperText>}
+                                    {form.errors.email ? true : false && session ? !session.email : true && <FormHelperText>There are currently {data ? `the ${data.count}` : "Some"} subscribers {session && session.email === field.value ? "and your email was prefilled from your JHQ ID" : null}</FormHelperText>}
                                 </FormControl>
                             )}
                         </Field>
