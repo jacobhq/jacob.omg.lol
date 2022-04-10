@@ -1,4 +1,6 @@
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, HStack, Input, Text } from "@chakra-ui/react";
+import { useUser } from "@auth0/nextjs-auth0";
+import { Box, Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, HStack, Input, Text, useToast } from "@chakra-ui/react";
+import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import useSWR from "swr";
 
@@ -13,20 +15,42 @@ export default function NewsletterCard() {
         return error
     }
 
+    const { user: session, error: userErr, isLoading: isUserLoading } = useUser();
+
     // @ts-ignore
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, error } = useSWR('/api/newsletter/list-subscribers', fetcher, { refreshInterval: 10000 })
 
+    const toast = useToast()
+
     return (
         <Box p="5" borderWidth="1px" rounded="md">
             <Heading size="md" mb="10px">Subscribe to my newsletter</Heading>
-            <Text mb="20px">Get updates about what I'm working on.</Text>
+            <Text mb="20px">Join {data ? `the ${data.count}` : "some"} other {data ? data.count === 1 ? "person" : "people" : "people"} who get updates on what I'm working on.</Text>
             <Formik
-                initialValues={{ email: '' }}
+                initialValues={{ email: session ? session.email : '' }}
                 onSubmit={(values, actions) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2))
-                        actions.setSubmitting(false)
+                    setTimeout(async () => {
+                        actions.setSubmitting(true)
+                        await axios.post('/api/newsletter/subscribe', {
+                            email: values.email
+                        }).then((response) => {
+                            if (response.status === 201) {
+                                toast({
+                                    title: "Successfully subscribed",
+                                    description: "You'll recieve an email shortly",
+                                    status: "success"
+                                })
+                                actions.setSubmitting(false)
+                            }
+                        }).catch(() => {
+                            toast({
+                                title: "Error subscribing",
+                                description: "Check you're not already subscribed",
+                                status: "error"
+                            })
+                            actions.setSubmitting(false)
+                        })
                     }, 1000)
                 }}
             >
@@ -42,17 +66,20 @@ export default function NewsletterCard() {
                                             colorScheme='blue'
                                             isLoading={props.isSubmitting}
                                             type='submit'
+                                            isDisabled={form.errors.email}
                                         >
                                             Subscribe
                                         </Button>
                                     </HStack>
+                                    {session && session.email === field.value && <FormHelperText>Your email was prefilled from your JHQ ID</FormHelperText>}
+                                    <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                                    {form.errors.email ? true : false && session ? !session.email : true && <FormHelperText>There are currently {data ? `the ${data.count}` : "Some"} subscribers</FormHelperText>}
                                 </FormControl>
                             )}
                         </Field>
                     </Form>
                 )}
             </Formik>
-            <Text as="small">Join {data ? data.count : "some"} other {data ? data.count === 1 ? "person" : "people" : "people"} in reading my newsletter</Text>
         </Box>
     )
 }
