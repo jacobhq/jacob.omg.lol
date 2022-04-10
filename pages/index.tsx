@@ -111,6 +111,9 @@ export default function HomePage({ posts }: { posts: Post[] }) {
               </Box>
             ))}
           </SimpleGrid>
+          <Link href="/blog">
+            <Button variant="ghost" mt={4}>Read all posts →</Button>
+          </Link>
         </Box>
         <Box as="section" py={6}>
           <Heading size="lg" mb={4}>Recent tweets</Heading>
@@ -171,6 +174,9 @@ export default function HomePage({ posts }: { posts: Post[] }) {
                 </Flex>
               </Box>)}
           </SimpleGrid>
+          <a href="https://twitter.com/jhqcat" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" mt={4}>Read all tweets →</Button>
+          </a>
         </Box>
       </Layout>
     </>

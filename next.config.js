@@ -8,6 +8,20 @@ module.exports = withContentlayer(withPWA({
     runtimeCaching,
     buildExcludes: [/middleware-manifest.json$/],
   },
+  async redirects() {
+    return [
+      {
+        source: "/posts",
+        destination: "/blog",
+        permanent: true,
+      },
+      {
+        source: "/blog/:slug",
+        destination: "/posts/:slug",
+        permanent: true,
+      }
+    ];
+  },
   async rewrites() {
     return [
       {

@@ -5,7 +5,6 @@ import Stream from './Stream'
 export default function Layout ({ children }) {
     return (
         <main>
-            <Stream />
             <Nav />
             {children}
             <NewsletterCard />
