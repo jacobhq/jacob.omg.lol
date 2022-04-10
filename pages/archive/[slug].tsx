@@ -58,8 +58,8 @@ const PostLayout = ({ letter }: { letter: Newsletter }) => {
             components={ChakraUIRenderer()}
             children={letter.body.raw}
           />
-          <Link href="/">
-            <Button variant="ghost" marginTop="50px">Go home →</Button>
+          <Link href="/archive">
+            <Button variant="ghost" marginTop="50px">&larr; Back to archive</Button>
           </Link>
         </article>
       </Layout>

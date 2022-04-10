@@ -28,6 +28,7 @@ import {
   Book,
   Code,
   Film,
+  Archive,
 } from "react-feather";
 import useArrowKeyNavigationHook from "react-arrow-key-navigation-hook";
 import useSearch from "react-hook-search";
@@ -68,6 +69,15 @@ const Menu = forwardRef((props, ref) => {
       },
     },
     {
+      name: "Newsletter archive",
+      icon: <Archive />,
+      kbd: "G+A",
+      go: () => {
+        router.push("/archive");
+        onClose();
+      },
+    },
+    {
       name: "Guestbook",
       icon: <Book />,
       kbd: "L+M",
@@ -77,14 +87,14 @@ const Menu = forwardRef((props, ref) => {
       },
     },
     {
-        name: "Watch stream",
-        icon: <Film />,
-        kbd: "G+S",
-        go: () => {
-          router.push("/stream");
-          onClose();
-        },
+      name: "Watch stream",
+      icon: <Film />,
+      kbd: "G+S",
+      go: () => {
+        router.push("/stream");
+        onClose();
       },
+    },
     { name: "Projects", icon: <Code />, kbd: "P", go: goProjects },
     { name: "Themes", icon: <Eye />, kbd: "T", go: goThemes },
     {

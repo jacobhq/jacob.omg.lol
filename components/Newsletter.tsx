@@ -2,9 +2,14 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { Box, Button, Divider, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, HStack, Input, Text, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
+import Link from "next/link";
 import useSWR from "swr";
 
-export default function NewsletterCard() {
+type Props = {
+    hasBorder?: boolean
+}
+
+export default function NewsletterCard({ hasBorder }: Props) {
     function validateEmail(value) {
         let error
         if (!value) {
@@ -25,10 +30,10 @@ export default function NewsletterCard() {
 
     return (
         <>
-            <Divider />
-            <Box p="5" rounded="md" mb={8}>
+            {!hasBorder && <Divider />}
+            <Box p="5" rounded="md" borderWidth={hasBorder ? "1px" : 0} mb={8}>
                 <Heading size="md" mb="10px">Subscribe to my newsletter</Heading>
-                <Text mb="20px">Join {data ? `the ${data.count}` : "some"} other {data ? data.count === 1 ? "person" : "people" : "people"} who get updates on what I'm working on.</Text>
+                <Text mb="20px">Join {data ? `the ${data.count}` : "some"} other {data ? data.count === 1 ? "person" : "people" : "people"} who get updates on what I'm working on. Prefer not to get anymore emails? <Link href="/archive">View the archive</Link>.</Text>
                 <Formik
                     initialValues={{ email: session ? session.email : '' }}
                     onSubmit={(values, actions) => {
