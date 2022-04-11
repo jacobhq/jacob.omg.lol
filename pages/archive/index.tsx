@@ -1,9 +1,10 @@
-import { ListItem, UnorderedList, Heading, Text, Box, Link } from "@chakra-ui/react";
+import { ListItem, UnorderedList, Heading, Text, Box, Link as ChakraLink } from "@chakra-ui/react";
 import Layout from "components/Layout";
 import NewsletterCard from "components/Newsletter";
 import { allNewsletters } from "contentlayer/generated";
 import { Newsletter } from 'contentlayer/generated'
 import styles from '../../styles/Home.module.css'
+import Link from "next/link";
 
 export default function ArchivePage({ newsletters }: { newsletters: Newsletter[] }) {
     return (
@@ -17,9 +18,9 @@ export default function ArchivePage({ newsletters }: { newsletters: Newsletter[]
             <UnorderedList>
                 {newsletters.map((i: Newsletter) => (
                     <ListItem key={i.slug}>
-                        <Link href={`/archive/${i.slug}`}>
+                        <ChakraLink as={Link} href={`/archive/${i.slug}`}>
                             {i.title}
-                        </Link>
+                        </ChakraLink>
                     </ListItem>
                 ))}
             </UnorderedList>
