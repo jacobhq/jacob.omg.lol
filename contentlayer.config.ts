@@ -19,6 +19,10 @@ export const Post = defineDocumentType(() => ({
       description: 'The date of the post',
       required: true,
     },
+    unlisted: {
+      type: 'boolean',
+      description: 'Whether or not to show on the main homepage feed'
+    }
   },
   computedFields: {
     slug: {
@@ -51,6 +55,10 @@ export const Newsletter = defineDocumentType(() => ({
       description: 'The date of the letter',
       required: true,
     },
+    unlisted: {
+      type: 'boolean',
+      description: 'Whether or not to show on the main homepage feed'
+    }
   },
   computedFields: {
     slug: {

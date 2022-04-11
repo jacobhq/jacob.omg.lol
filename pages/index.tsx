@@ -32,15 +32,24 @@ import useSWR from 'swr'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import Link from 'next/link'
 import Linkify from 'react-linkify';
-import { allPosts, Post } from 'contentlayer/generated'
+import { allNewsletters, allPosts, Post } from 'contentlayer/generated'
 import { compareDesc } from 'date-fns'
 
-export default function HomePage({ posts }: { posts: Post[] }) {
+export default function HomePage({ all }: any) {
   const router = useRouter()
   let [isNav, setNav] = useState(false)
 
-  function goPost(url) {
+  function goPost(slug, type) {
     setNav(true)
+    console.log(slug, type)
+    let url
+    switch (type) {
+      case "Post":
+        url = `/post/${slug}`
+      case "Newsletter":
+        url = `/archive/${slug}`
+    }
+    console.log(url)
     router.push(url)
   }
 
@@ -89,21 +98,24 @@ export default function HomePage({ posts }: { posts: Post[] }) {
           </Collapse>
         </Box>
         <Box as="section" py={6}>
-          <Heading size="lg" mb={4}>From the blog</Heading>
+          <Heading size="lg" mb={4}>The latest</Heading>
           <SimpleGrid columns={[1, null, 2]} spacing={3}>
-            {posts.slice(0, 2).map(({ slug, date, title, description, author, avatar }) => (
+            {all.slice(0, 2).map(({ slug, date, title, description, author, avatar, type }) => (
               <Box p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
-                <Box as="time" dateTime={date}></Box>
-                <HStack>
-                  <Heading size="md" my="2" cursor="pointer">
-                    <p onClick={() => goPost(`/posts/${slug}`)}>
-                      {title}
-                    </p>
-                  </Heading>
-                  {/* @ts-expect-error ts-migrate(2741) FIXME: Property '"aria-label"' is missing in type '{ vari... Remove this comment to see the full error message */}
-                  <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(`/posts/${slug}`)} className={styles.goBtn} />
-                </HStack>
-                <Text>{description}</Text>
+                <Box>
+                  <Box as="time" dateTime={date}></Box>
+                  <HStack justifyContent="space-between">
+                    <Heading size="md" my="2" cursor="pointer">
+                      <p onClick={() => goPost(slug, type)}>
+                        {title}
+                      </p>
+                    </Heading>
+                    {/* @ts-expect-error ts-migrate(2741) FIXME: Property '"aria-label"' is missing in type '{ vari... Remove this comment to see the full error message */}
+                    <IconButton variant="ghost" icon={<ChevronRight />} isLoading={isNav} onClick={() => goPost(slug, type)} className={styles.goBtn} />
+                  </HStack>
+                  <Badge mb={2}>{type}</Badge>
+                  <Text>{description}</Text>
+                </Box>
                 <HStack marginTop="15px">
                   <Avatar name={author} src={avatar} size="xs" />
                   <Text>{author} • <DateComponent dateString={date} /></Text>
@@ -184,9 +196,9 @@ export default function HomePage({ posts }: { posts: Post[] }) {
 }
 
 export async function getStaticProps() {
-  const posts = allPosts.sort(
+  const all = [].concat(allPosts, allNewsletters).filter(i => i.unlisted !== true).sort(
     (a, b) => {
       return Number(new Date(b.date)) - Number(new Date(a.date))
     });
-  return { props: { posts } }
+  return { props: { all } }
 }
