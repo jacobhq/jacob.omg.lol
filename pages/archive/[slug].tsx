@@ -31,7 +31,7 @@ const PostLayout = ({ letter }: { letter: Newsletter }) => {
   return (
     <>
       <Head>
-        <title>{letter.title} - Blog | JacobHQ</title>
+        <title>{letter.title} - Archive | JacobHQ</title>
         <meta name="author" content={letter.author} />
       </Head>
       <Layout>
