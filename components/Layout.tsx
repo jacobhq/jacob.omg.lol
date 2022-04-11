@@ -1,12 +1,17 @@
 import Nav from './Nav'
-import Stream from './Stream'
+import NewsletterCard from './Newsletter'
 
-export default function Layout ({ children }) {
+type LayoutProps = {
+    children: any
+    hasNewsletterCard?: boolean
+}
+
+export default function Layout ({ children, hasNewsletterCard }: LayoutProps) {
     return (
         <main>
-            <Stream />
             <Nav />
             {children}
+            {hasNewsletterCard !== false && <NewsletterCard />}
         </main>
     )
 }

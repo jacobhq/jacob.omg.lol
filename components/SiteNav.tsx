@@ -7,6 +7,8 @@ export default function SiteNav() {
     useHotkeys("G+H", () => router.push("/"));
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     useHotkeys("G+B", () => router.push("/blog"));
+    // @ts-ignore
+    useHotkeys("G+A", () => router.push("/archive"));
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.
     useHotkeys("G+S", () => router.push("/stream"));
     // @ts-expect-error ts-migrate(2769) FIXME: No overload matches this call.

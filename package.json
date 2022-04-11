@@ -27,6 +27,7 @@
     "colist": "^0.0.3",
     "contentlayer": "^0.2.1",
     "date-fns": "^2.25.0",
+    "formik": "^2.2.9",
     "framer-motion": "^5.2.1",
     "gray-matter": "^4.0.3",
     "match-sorter": "^6.3.1",
