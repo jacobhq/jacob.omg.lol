@@ -20,6 +20,7 @@ export default function Nav() {
     return (
         <>
             <Menu ref={menuRef} />
+            {/* @ts-ignore */}
             <InView>
                 {({ inView, ref, entry }) => (
                     <>
