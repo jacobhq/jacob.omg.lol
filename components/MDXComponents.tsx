@@ -44,14 +44,14 @@ export const defaults: Defaults = {
         const { inline, children, className } = props;
 
         if (inline) {
-            return <Code p={2} children={children} />;
+            return <Code p={2} display="inline" children={children} />;
         }
 
         return (
             <Code
                 className={className}
                 whiteSpace="break-spaces"
-                d="block"
+                d="inline"
                 w="full"
                 p={2}
                 children={children}
@@ -63,7 +63,7 @@ export const defaults: Defaults = {
         return <Text as="del">{children}</Text>;
     },
     hr: props => {
-        return <Divider />;
+        return <Divider py={2} />;
     },
     a: Link,
     img: Image,
@@ -139,8 +139,9 @@ export const defaults: Defaults = {
         const sizes = ['2xl', 'xl', 'lg', 'md', 'sm', 'xs'];
         return (
             <Heading
-                my={4}
-                as={`h${level}`}
+                pt={6}
+                pb={4}
+                as={`h2`}
                 size={sizes[`${level - 1}`]}
                 {...getCoreProps(props)}
             >
@@ -186,10 +187,7 @@ const elements = {
     tr: defaults.tr,
     td: defaults.td,
     th: defaults.th,
+    MarketingCard: MCard,
 };
 
-const MDXComponents = {
-    MarketingCard: MCard
-}
-
-export default MDXComponents;
+export default elements;
