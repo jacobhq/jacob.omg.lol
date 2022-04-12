@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "ts-migrate": "ts-migrate",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.6.1",
