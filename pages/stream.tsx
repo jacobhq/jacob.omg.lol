@@ -50,6 +50,7 @@ const Stream = () => {
             <Center h="100%" w="100%">
               {data ? (
                 data.err !== "No current streams" ? (
+                  // @ts-ignore
                   <YouTube
                     ref={initialRef}
                     videoId={data.videoID}
