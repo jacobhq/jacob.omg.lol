@@ -1,4 +1,5 @@
 import {
+    Heading,
     HStack,
     Icon,
     IconButton,
@@ -47,28 +48,29 @@ export default function Nav() {
     )
 }
 
-export function MarketingNav() {
+type MarketingNavProps = {
+    title: string
+}
+
+export function MarketingNav({ title }: MarketingNavProps) {
     const variant = useBreakpointValue({ base: "blur", lg: "no-blur" })
     const menuRef = useRef()
 
     return (
         <>
             <Menu ref={menuRef} />
-            <InView>
-                {({ inView, ref, entry }) => (
-                    <>
-                        <HStack position="fixed" left={0} top={0} width="100vw" paddingTop="15px" paddingBottom="15px" paddingLeft="15px" className={`${variant} ${styles.nav}`}>
-                            <Tooltip label="G H" aria-label="Press g and h to go home">
-                                <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} aria-label="Go home" />
-                            </Tooltip>
-                            <Tooltip label="CTRL K" aria-label="Press ctrl and k to open the command menu">
-                                {/* @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'. */}
-                                <IconButton variant="ghost" size="lg" icon={<Icon as={Command} boxSize={6} />} onClick={() => menuRef.current.openModal()} aria-label="Open the command menu" />
-                            </Tooltip>
-                        </HStack>
-                    </>
-                )}
-            </InView>
+            <HStack position="fixed" justifyContent="space-between" left={0} top={0} width="calc(100% - 15px)" paddingTop="15px" paddingBottom="15px" paddingLeft="15px" className={`${variant} ${styles.nav}`}>
+                <HStack>
+                    <Tooltip label="G H" aria-label="Press g and h to go home">
+                        <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} aria-label="Go home" />
+                    </Tooltip>
+                    <Tooltip label="CTRL K" aria-label="Press ctrl and k to open the command menu">
+                        {/* @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'. */}
+                        <IconButton variant="ghost" size="lg" icon={<Icon as={Command} boxSize={6} />} onClick={() => menuRef.current.openModal()} aria-label="Open the command menu" />
+                    </Tooltip>
+                </HStack>
+                <Heading size="sm">Project: {title}</Heading>
+            </HStack>
         </>
     )
 }

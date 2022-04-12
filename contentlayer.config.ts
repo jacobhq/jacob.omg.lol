@@ -84,6 +84,7 @@ export const Marketing = defineDocumentType(() => ({
       required: true,
     },
     description: { type: 'string', required: true },
+    bannerTitle: { type: 'string', required: true },
     author: { type: 'string', required: true },
     avatar: { type: 'string', required: true },
     date: {
@@ -94,7 +95,9 @@ export const Marketing = defineDocumentType(() => ({
     unlisted: {
       type: 'boolean',
       description: 'Whether or not to show on the main homepage feed'
-    }
+    },
+    ctaBtn: { type: 'string', required: true },
+    ctaHref: { type: 'string', required: false },
   },
   computedFields: {
     slug: {

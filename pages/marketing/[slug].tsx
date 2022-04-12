@@ -2,10 +2,10 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { allMarketings } from 'contentlayer/generated'
 import { Marketing } from 'contentlayer/generated'
-import { Heading, HStack, Avatar, Button, Text, useDisclosure, Tooltip, VStack, Divider, Box, Center, Container } from '@chakra-ui/react'
+import { Heading, HStack, Avatar, Button, Text, useDisclosure, Tooltip, VStack, Divider, Box, Center, Container, ButtonGroup } from '@chakra-ui/react'
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import ReactMarkdown from 'react-markdown'
-import title from '../../styles/Home.module.css'
+import styles from '../../styles/Marketing.module.css'
 import Date from 'components/date'
 import Layout from 'components/Layout'
 import MarketingLayout from 'components/MarketingLayout'
@@ -35,26 +35,34 @@ const MarketingPage = ({ marketing }: { marketing: Marketing }) => {
                 <title>{marketing.title} - JacobHQ</title>
                 <meta name="author" content={marketing.author} />
             </Head>
-            <MarketingLayout>
+            <MarketingLayout title={marketing.title} theme='dark'>
                 <article>
-                    <Box as="header" h="95vh">
+                    <Box as="header" h="90vh">
                         <Center h="full">
-                            <Container>
+                            <Container maxW="container.md">
                                 <VStack>
-                                    <Heading size="4xl">{marketing.title}</Heading>
-                                    <Text pt={4} textAlign="center">{marketing.description}</Text>
+                                    <Heading className={styles.heading} size="4xl" textAlign="center">{marketing.bannerTitle}</Heading>
+                                    <Text className={styles.tagline} pt={4} textAlign="center">{marketing.description}</Text>
+                                    <ButtonGroup className={styles.cta} pt={6}>
+                                        <a href={marketing.ctaHref} target="_blank" rel="noopener noreferrer">
+                                            <Button colorScheme="blue">{marketing.ctaBtn}</Button>
+                                        </a>
+                                        <a href="https://buymeacoffee.com/jem" target="_blank" rel="noopener noreferrer">
+                                            <Button>Buy me a coffee</Button>
+                                        </a>
+                                    </ButtonGroup>
                                 </VStack>
                             </Container>
                         </Center>
                     </Box>
+                    <Center w="full" pb={2}>
+                        <Text className={styles.scroller} color="gray.300">Scroll down</Text>
+                    </Center>
                     <Divider my={4} mb={6} />
                     <ReactMarkdown
                         components={ChakraUIRenderer()}
                         children={marketing.body.raw}
                     />
-                    <Link href="/blog">
-                        <Button variant="ghost" marginTop="50px">&larr; Back to blog</Button>
-                    </Link>
                 </article>
             </MarketingLayout>
         </>
