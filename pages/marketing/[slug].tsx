@@ -1,14 +1,13 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { allMarketings } from 'contentlayer/generated'
 import { Marketing } from 'contentlayer/generated'
-import { Heading, HStack, Avatar, Button, Text, useDisclosure, Tooltip, VStack, Divider, Box, Center, Container, ButtonGroup } from '@chakra-ui/react'
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
-import ReactMarkdown from 'react-markdown'
+import { Heading, Button, Text, VStack, Divider, Box, Center, Container, ButtonGroup } from '@chakra-ui/react'
 import styles from '../../styles/Marketing.module.css'
-import Date from 'components/date'
-import Layout from 'components/Layout'
 import MarketingLayout from 'components/MarketingLayout'
+import components from 'components/MDXComponents';
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'next-mdx-remote'
+import { Prose } from '@nikolovlazar/chakra-ui-prose'
 
 export async function getStaticPaths() {
     const paths = allMarketings.map((p) => ({ params: { slug: p.slug } }))
@@ -20,15 +19,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     const marketing = allMarketings.find((post) => post.slug === params.slug)
+    const mdx = await serialize(marketing.body.raw)
     return {
         props: {
-            marketing
+            marketing, mdx
         }
     }
 }
 
-const MarketingPage = ({ marketing }: { marketing: Marketing }) => {
-    let { isOpen, onToggle } = useDisclosure()
+const MarketingPage = ({ marketing, mdx }: { marketing: Marketing, mdx: any }) => {
     return (
         <>
             <Head>
@@ -59,10 +58,7 @@ const MarketingPage = ({ marketing }: { marketing: Marketing }) => {
                         <Text className={styles.scroller} color="gray.300">Scroll down</Text>
                     </Center>
                     <Divider my={4} mb={6} />
-                    <ReactMarkdown
-                        components={ChakraUIRenderer()}
-                        children={marketing.body.raw}
-                    />
+                    <MDXRemote {...mdx} components={components} />
                 </article>
             </MarketingLayout>
         </>

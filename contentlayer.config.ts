@@ -76,7 +76,8 @@ export const Newsletter = defineDocumentType(() => ({
 export const Marketing = defineDocumentType(() => ({
   name: 'Marketing',
   filePathPattern: `marketing/*.mdx`,
-  contentType: 'mdx',
+  // This is actually mdx, but I don't use the bundler so :/
+  contentType: 'markdown',
   fields: {
     title: {
       type: 'string',
