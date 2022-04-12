@@ -1,9 +1,9 @@
 import { useColorMode } from '@chakra-ui/react'
-import { ReactNode, useEffect } from 'react'
+import { useEffect } from 'react'
 import { MarketingNav } from './Nav'
 
 type LayoutProps = {
-    children: ReactNode
+    children: any
     theme?: "light" | "dark",
     title: string
 }

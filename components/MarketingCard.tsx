@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 type MarketingCardTypes = {
     title: string
-    children: ReactNode
+    children: any
 }
 
 export default function MarketingCard({ title, children }: MarketingCardTypes) {

@@ -9,7 +9,7 @@ function MCard(props) {
 }
 
 type GetCoreProps = {
-    children?: React.ReactNode;
+    children?: any;
     'data-sourcepos'?: any;
 };
 
