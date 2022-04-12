@@ -34,6 +34,7 @@ import useArrowKeyNavigationHook from "react-arrow-key-navigation-hook";
 import useSearch from "react-hook-search";
 import { forwardRef, useImperativeHandle } from "react";
 import SiteNav from "./SiteNav";
+import { allMarketings } from "contentlayer/generated";
 
 const Menu = forwardRef((props, ref) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -124,16 +125,15 @@ const Menu = forwardRef((props, ref) => {
     // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string[]' is not assignable to p... Remove this comment to see the full error message
     themesAttrs
   );
-  const projects = [
-    { name: "Dark", icon: <Moon />, go: toggleColorMode },
-    { name: "Light", icon: <Sun />, go: toggleColorMode },
-    { name: "Back", icon: <ArrowLeft />, go: goBack },
-  ];
-  const projectsAttrs = ["name", "icon"];
+  const projects = allMarketings.sort(
+    (a, b) => {
+      return Number(new Date(b.date)) - Number(new Date(a.date))
+    });
+  const projectsAttrs = ["title", "description", "tagline"];
   const [filteredProjects, projectsSearch, setProjectsSearch] = useSearch(
-    themes,
+    projects,
     // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'string[]' is not assignable to p... Remove this comment to see the full error message
-    themesAttrs
+    projectsAttrs
   );
 
   // Keybinds
@@ -313,7 +313,7 @@ const Menu = forwardRef((props, ref) => {
                   // @ts-expect-error ts-migrate(2322) FIXME: Type '(e: MouseEvent<HTMLDivElement, MouseEvent>) ... Remove this comment to see the full error message
                   onClick={(e) => {
                     e.preventDefault();
-                    item.go();
+                    () => router.push(`/marketing/${item.slug}`)
                   }}
                   _hover={{ backgroundColor: hoverColor }}
                   _focus={{ backgroundColor: hoverColor }}
@@ -322,8 +322,8 @@ const Menu = forwardRef((props, ref) => {
                   <ButtonGroup>
                     <IconButton
                       className={(search.icon, search.noFocus)}
-                      icon={item.icon}
-                      onClick={item.go}
+                      icon={<Code />}
+                      onClick={() => router.push(`/marketing/${item.slug}`)}
                       variant="unstyled"
                       // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
                       tabIndex="-1"
@@ -336,7 +336,7 @@ const Menu = forwardRef((props, ref) => {
                       // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
                       tabIndex="-1"
                     >
-                      {item.name}
+                      {item.title}
                     </Button>
                   </ButtonGroup>
                 </Box>
