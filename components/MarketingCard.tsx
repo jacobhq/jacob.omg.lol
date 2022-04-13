@@ -1,5 +1,4 @@
 import { Box, Heading, useColorModeValue } from "@chakra-ui/react";
-import { ReactNode } from "react";
 
 type MarketingCardTypes = {
     title: string
