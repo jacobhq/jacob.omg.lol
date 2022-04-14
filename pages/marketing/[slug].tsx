@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { allMarketings } from 'contentlayer/generated'
 import { Marketing } from 'contentlayer/generated'
-import { Heading, Button, Text, VStack, Divider, Box, Center, Container, ButtonGroup } from '@chakra-ui/react'
+import { Heading, Button, Text, VStack, Divider, Box, Center, Container, ButtonGroup, Stack, useBreakpointValue } from '@chakra-ui/react'
 import styles from '../../styles/Marketing.module.css'
 import MarketingLayout from 'components/MarketingLayout'
 import components from 'components/MDXComponents';
@@ -28,6 +28,8 @@ export async function getStaticProps({ params }) {
 }
 
 const MarketingPage = ({ marketing, mdx }: { marketing: Marketing, mdx: any }) => {
+    const variant = useBreakpointValue({ base: marketing.title, md: marketing.bannerTitle })
+
     return (
         <>
             <Head>
@@ -40,16 +42,12 @@ const MarketingPage = ({ marketing, mdx }: { marketing: Marketing, mdx: any }) =
                         <Center h="full">
                             <Container maxW="container.md">
                                 <VStack>
-                                    <Heading className={styles.heading} size="4xl" textAlign="center">{marketing.bannerTitle}</Heading>
+                                    <Heading className={styles.heading} size="4xl" textAlign="center">{variant}</Heading>
                                     <Text className={styles.tagline} pt={4} textAlign="center">{marketing.description}</Text>
-                                    <ButtonGroup className={styles.cta} pt={6}>
-                                        <a href={marketing.ctaHref} target="_blank" rel="noopener noreferrer">
-                                            <Button colorScheme="blue">{marketing.ctaBtn}</Button>
-                                        </a>
-                                        <a href="https://buymeacoffee.com/jem" target="_blank" rel="noopener noreferrer">
-                                            <Button>Buy me a coffee</Button>
-                                        </a>
-                                    </ButtonGroup>
+                                    <Stack justifyContent="center" w="full" className={styles.cta} direction={{ base: 'column', md: 'row' }} spacing={4} pt={4}>
+                                        <Button as="a" href={marketing.ctaHref} target="_blank" rel="noopener noreferrer" colorScheme="blue">{marketing.ctaBtn}</Button>
+                                        <Button as="a" href="https://buymeacoffee.com/jem" target="_blank" rel="noopener noreferrer">Buy me a coffee</Button>
+                                    </Stack>
                                 </VStack>
                             </Container>
                         </Center>
