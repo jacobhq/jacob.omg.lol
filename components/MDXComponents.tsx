@@ -128,7 +128,7 @@ export const defaults: Defaults = {
         return (
             <ListItem
                 {...getCoreProps(props)}
-                listStyleType={checked !== null ? 'none' : 'inherit'}
+                listStyleType={'inherit'}
             >
                 {checkbox || children}
             </ListItem>

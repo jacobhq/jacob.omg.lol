@@ -313,7 +313,7 @@ const Menu = forwardRef((props, ref) => {
                   // @ts-expect-error ts-migrate(2322) FIXME: Type '(e: MouseEvent<HTMLDivElement, MouseEvent>) ... Remove this comment to see the full error message
                   onClick={(e) => {
                     e.preventDefault();
-                    () => router.push(`/marketing/${item.slug}`)
+                    router.push(`/marketing/${item.slug}`)
                   }}
                   _hover={{ backgroundColor: hoverColor }}
                   _focus={{ backgroundColor: hoverColor }}

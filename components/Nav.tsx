@@ -60,7 +60,7 @@ export function MarketingNav({ title }: MarketingNavProps) {
     return (
         <>
             <Menu ref={menuRef} />
-            <HStack position="fixed" justifyContent="space-between" left={0} top={0} width="calc(100% - 15px)" paddingTop="15px" paddingBottom="15px" paddingLeft="15px" className={`${variant} ${styles.nav}`}>
+            <HStack justifyContent="space-between" left={0} top={0} width="calc(100% - 15px)" paddingTop="15px" paddingBottom="15px" paddingLeft="15px" className={`${styles.nav}`}>
                 <HStack>
                     <Tooltip label="G H" aria-label="Press g and h to go home">
                         <IconButton variant="ghost" size="lg" icon={<Icon as={Home} boxSize={6} />} onClick={() => router.push('/')} aria-label="Go home" />
