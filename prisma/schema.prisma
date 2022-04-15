@@ -30,3 +30,10 @@ model Stream {
   liveNow      Boolean @default(false)
   countingDown Boolean @default(false)
 }
+
+model Sign {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  data      String   @db.VarChar(255)
+}
