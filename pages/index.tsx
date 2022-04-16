@@ -101,7 +101,7 @@ export default function HomePage({ all }: any) {
           <Heading size="lg" mb={4}>The latest</Heading>
           <SimpleGrid columns={[1, null, 2]} spacing={3}>
             {all.slice(0, 2).map(({ slug, date, title, description, author, avatar, type }) => (
-              <Box p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
+              <Box key={slug} p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
                 <Box>
                   <Box as="time" dateTime={date}></Box>
                   <HStack justifyContent="space-between">

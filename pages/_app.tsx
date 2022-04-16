@@ -4,6 +4,7 @@ import '../styles/globals.css'
 import NProgress from '../components/nprogress';
 import { extendTheme } from '@chakra-ui/react'
 import { withProse } from '@nikolovlazar/chakra-ui-prose'
+import { Toaster } from 'react-hot-toast';
 
 const theme = extendTheme(
   {
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       <ChakraProvider>
         <Component {...pageProps} />
         <NProgress />
+        <Toaster />
       </ChakraProvider>
     </UserProvider>
   )

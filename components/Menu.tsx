@@ -314,6 +314,7 @@ const Menu = forwardRef((props, ref) => {
                   onClick={(e) => {
                     e.preventDefault();
                     router.push(`/marketing/${item.slug}`)
+                    onProjectsClose()
                   }}
                   _hover={{ backgroundColor: hoverColor }}
                   _focus={{ backgroundColor: hoverColor }}
@@ -323,7 +324,7 @@ const Menu = forwardRef((props, ref) => {
                     <IconButton
                       className={(search.icon, search.noFocus)}
                       icon={<Code />}
-                      onClick={() => router.push(`/marketing/${item.slug}`)}
+                      onClick={() => {router.push(`/marketing/${item.slug}`); onProjectsClose()}}
                       variant="unstyled"
                       // @ts-expect-error ts-migrate(2322) FIXME: Type 'string' is not assignable to type 'number'.
                       tabIndex="-1"
