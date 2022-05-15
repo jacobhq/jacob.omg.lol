@@ -1,8 +1,0 @@
-{
-    "presets": ["next/babel"],
-    "plugins": [
-      "superjson-next", // 👈
-      "@babel/plugin-syntax-import-assertions"
-    ]
-  }
-  
