@@ -41,15 +41,15 @@ export default function HomePage({ all }: any) {
 
   function goPost(slug, type) {
     setNav(true)
-    console.log(slug, type)
     let url
     switch (type) {
       case "Post":
         url = `/post/${slug}`
+        break
       case "Newsletter":
         url = `/archive/${slug}`
+        break
     }
-    console.log(url)
     router.push(url)
   }
 
