@@ -2,7 +2,7 @@ const { withContentlayer } = require("next-contentlayer");
 const withPWA = require("next-pwa");
 const runtimeCaching = require("next-pwa/cache");
 
-module.exports = withContentlayer()(withPWA({
+module.exports = withContentlayer(withPWA({
   pwa: {
     dest: "public",
     runtimeCaching,
