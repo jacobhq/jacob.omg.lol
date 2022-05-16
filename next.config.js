@@ -1,9 +1,8 @@
 const { withContentlayer } = require("next-contentlayer");
 const withPWA = require("next-pwa");
 const runtimeCaching = require("next-pwa/cache");
-const { withSuperjson } = require('next-superjson')
 
-module.exports = withSuperjson()(withContentlayer()(withPWA({
+module.exports = withContentlayer()(withPWA({
   pwa: {
     dest: "public",
     runtimeCaching,
@@ -47,4 +46,4 @@ module.exports = withSuperjson()(withContentlayer()(withPWA({
       },
     ];
   },
-})))
+}))
