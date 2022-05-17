@@ -44,7 +44,7 @@ export default function HomePage({ all }: any) {
     let url
     switch (type) {
       case "Post":
-        url = `/post/${slug}`
+        url = `/posts/${slug}`
         break
       case "Newsletter":
         url = `/archive/${slug}`

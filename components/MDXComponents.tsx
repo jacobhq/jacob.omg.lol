@@ -1,6 +1,7 @@
 import { Divider, Text, UnorderedList, OrderedList, Checkbox, ListItem, Image, Heading, chakra, Table, Thead, Tbody, Tr, Td, Th, Code, Link } from "@chakra-ui/react";
 import MarketingCard from "./MarketingCard";
 import { Components } from 'react-markdown';
+import styles from "../styles/Blog.module.css"
 
 function MCard(props) {
     return (
@@ -159,6 +160,9 @@ export const defaults: Defaults = {
     tr: props => <Tr>{props.children}</Tr>,
     td: props => <Td>{props.children}</Td>,
     th: props => <Th>{props.children}</Th>,
+    video: props => {
+        return <video className={styles.video} {...props} {...getCoreProps(props)} />
+    },
 };
 
 const elements = {
@@ -188,6 +192,7 @@ const elements = {
     td: defaults.td,
     th: defaults.th,
     MarketingCard: MCard,
+    Video: defaults.video
 };
 
 export default elements;
