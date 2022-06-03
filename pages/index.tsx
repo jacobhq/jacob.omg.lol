@@ -41,16 +41,12 @@ export default function HomePage({ all }: any) {
 
   function goPost(slug, type) {
     setNav(true)
-    console.log(slug, type)
-    let url
     switch (type) {
       case "Post":
-        url = `/post/${slug}`
+        return router.push(`/post/${slug}`)
       case "Newsletter":
-        url = `/archive/${slug}`
+        return router.push(`/archive/${slug}`)
     }
-    console.log(url)
-    router.push(url)
   }
 
   const variant = useBreakpointValue({ base: "100%", md: "50%" })
@@ -130,7 +126,7 @@ export default function HomePage({ all }: any) {
         <Box as="section" py={6}>
           <Heading size="lg" mb={4}>Recent tweets</Heading>
           <SimpleGrid columns={[1, null, 2]} spacing={3}>
-            {tweets ? tweets.data.map((tweet) =>
+            {tweets && !error ? tweets.data.map((tweet) =>
               <Box p="5" borderWidth="1px" rounded="md" height="100%" display="flex" justifyContent="space-between" flexDir="column">
                 <Text>
                   <Linkify component={ChakraLink} propeties={{ target: "_blank" }}>
