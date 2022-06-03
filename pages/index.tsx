@@ -43,7 +43,7 @@ export default function HomePage({ all }: any) {
     setNav(true)
     switch (type) {
       case "Post":
-        return router.push(`/post/${slug}`)
+        return router.push(`/posts/${slug}`)
       case "Newsletter":
         return router.push(`/archive/${slug}`)
     }
