@@ -1,0 +1,29 @@
+---
+author: "Jacob Marshall"
+avatar: "https://avatars.githubusercontent.com/u/29145479"
+date: "2022-06-03"
+title: "Product launch: Startrack"
+description: "Recently, I launched Startrack. It's an easier way to star repos on GitHub. Commonly, you'll head to a repo with the intent to star. Perhaps you saw the website first, or have been using the project for a while but not starred."
+---
+
+Recently, I launched Startrack in a [YouTube livestream](https://www.youtube.com/watch?v=_ymQsetuz_Q). It's an easier way to star repos on GitHub. Commonly, you'll head to a repo with the intent to star. Perhaps you saw the website first, or have been using the project for a while but not starred. When you click the link to a repo, you are overwhelmed by a lot of useful information like files, the README, and commit history. This can cause you to loose that intent to star.
+
+<br />
+
+Startrack aims to solve this problem, and is a bit like [twitter intents](https://developer.twitter.com/en/docs/twitter-for-websites/web-intents/overview). With Startrack, that intent is preserved. When you go to a Startrack starring page, you are presented with some context about the repo, like a name, description and author, along with a button to star in *one click*.
+
+<br />
+
+I am able to achieve this great user experience, because the first time you attempt to star a repo, you are prompted to authenticate with GitHub. Startrack then receives an oAuth token, which it uses to authenticate with the GitHub API. As this token is persisted in a database, you can easily star repos with minimal friction.
+
+<br />
+
+Another key feature of Startrack is its ease of setup. All it takes to use Startrack with your repo is a URL in this format:
+<code>
+https://startrack.vercel.app/star/[OWNER]/[REPO]
+</code>
+That's it! There is no complex setup required. And Startrack also offers an easy and fast way for returning back to the page you were starring from. It uses the history stack to go back, allowing for the page to be served from the browser cache for fast load times. This results in minimal disruption to the user.
+
+<br />
+
+That's it for this post! If you enjoyed it and are able to financially support me, please [buy me a coffee](https://buymeacoffee.com/jem). Otherwise, a Twitter follow ([@jqcat](https://twitter.com/intent/follow?screen_name=jhqcat)) or a YouTube subscribe ([Jacob Marshall](https://www.youtube.com/channel/UChXCa0OuD-HYr3QAESK434g)) would be nice. You can also [star this repo](https://startrack.vercel.app/star/jacobhq/startrack) or follow me on GitHub ([@jacobhq](https://github.com/jacobhq)). Have a great day.
