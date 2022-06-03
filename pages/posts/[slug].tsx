@@ -8,6 +8,9 @@ import ReactMarkdown from 'react-markdown'
 import title from '../../styles/Home.module.css'
 import Date from 'components/date'
 import Layout from 'components/Layout'
+import { MDXRemote } from 'next-mdx-remote'
+import components from 'components/MDXComponents';
+import { serialize } from 'next-mdx-remote/serialize'
 
 export async function getStaticPaths() {
   const paths = allPosts.map((p) => ({ params: { slug: p.slug } }))
@@ -19,14 +22,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const post = allPosts.find((post) => post.slug === params.slug)
+  const mdx = await serialize(post.body.raw)
   return {
     props: {
-      post
+      post, mdx
     }
   }
 }
 
-const PostLayout = ({ post }: { post: Post }) => {
+const PostLayout = ({ post, mdx }: { post: Post, mdx: any }) => {
   let { isOpen, onToggle } = useDisclosure()
   return (
     <>
@@ -54,10 +58,7 @@ const PostLayout = ({ post }: { post: Post }) => {
             </Tooltip>
           </HStack>
           <Divider my={4} mb={6} />
-          <ReactMarkdown
-            components={ChakraUIRenderer()}
-            children={post.body.raw}
-          />
+          <MDXRemote {...mdx} components={components} />
           <Link href="/blog">
             <Button variant="ghost" marginTop="50px">&larr; Back to blog</Button>
           </Link>
