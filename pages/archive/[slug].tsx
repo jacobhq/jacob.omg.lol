@@ -3,11 +3,12 @@ import Link from 'next/link'
 import { allNewsletters } from 'contentlayer/generated'
 import { Newsletter } from 'contentlayer/generated'
 import { Heading, HStack, Avatar, Button, Text, useDisclosure, Tooltip, VStack, Divider } from '@chakra-ui/react'
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
-import ReactMarkdown from 'react-markdown'
 import title from '../../styles/Home.module.css'
 import Date from 'components/date'
 import Layout from 'components/Layout'
+import { MDXRemote } from 'next-mdx-remote'
+import components from 'components/MDXComponents';
+import { serialize } from 'next-mdx-remote/serialize'
 
 export async function getStaticPaths() {
   const paths = allNewsletters.map((p) => ({ params: { slug: p.slug } }))
@@ -19,14 +20,15 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const letter = allNewsletters.find((post) => post.slug === params.slug)
+  const mdx = await serialize(letter.body.raw)
   return {
     props: {
-      letter
+      letter, mdx
     }
   }
 }
 
-const PostLayout = ({ letter }: { letter: Newsletter }) => {
+const PostLayout = ({ letter, mdx }: { letter: Newsletter, mdx: any }) => {
   let { isOpen, onToggle } = useDisclosure()
   return (
     <>
@@ -54,10 +56,7 @@ const PostLayout = ({ letter }: { letter: Newsletter }) => {
             </Tooltip>
           </HStack>
           <Divider my={4} mb={6} />
-          <ReactMarkdown
-            components={ChakraUIRenderer()}
-            children={letter.body.raw}
-          />
+          <MDXRemote {...mdx} components={components} />
           <Link href="/archive">
             <Button variant="ghost" marginTop="50px">&larr; Back to archive</Button>
           </Link>
