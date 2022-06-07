@@ -1,7 +1,7 @@
 .input {
     margin: var(--gap) 0;
-    padding-left: var(--chakra-space-6);
-    padding-right: var(--chakra-space-6);
+    padding-left: var(--chakra-space-6) !important;
+    padding-right: var(--chakra-space-6) !important;
     padding-top: var(--chakra-space-2)
 }
 
