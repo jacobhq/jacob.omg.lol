@@ -5,6 +5,7 @@ import NProgress from '../components/nprogress';
 import { extendTheme } from '@chakra-ui/react'
 import { withProse } from '@nikolovlazar/chakra-ui-prose'
 import { Toaster } from 'react-hot-toast';
+import { RoomProvider } from "liveblocks.config";
 
 const theme = extendTheme(
   {
@@ -17,11 +18,21 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
   return (
     <UserProvider>
-      <ChakraProvider>
-        <Component {...pageProps} />
-        <NProgress />
-        <Toaster />
-      </ChakraProvider>
+      <RoomProvider
+        id={"default_room"}
+        /**
+         * Initialize the cursor position to null when joining the room
+         */
+        initialPresence={{
+          cursor: null,
+        }}
+      >
+        <ChakraProvider>
+          <Component {...pageProps} />
+          <NProgress />
+          <Toaster />
+        </ChakraProvider>
+      </RoomProvider>
     </UserProvider>
   )
 }

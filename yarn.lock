@@ -2843,6 +2843,16 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@liveblocks/client@^0.17.1":
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/@liveblocks/client/-/client-0.17.1.tgz#b8e9669e282582edd3859ef611227f7c0eab8e78"
+  integrity sha512-brK8+sOmolPy64nyx2bGGe5+TSZIeprNGc2VV3tTulubzb1EaYzSzjdlAit8bAqP/pz4yew2VsmhNUm7gYM5oQ==
+
+"@liveblocks/react@^0.17.1":
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/@liveblocks/react/-/react-0.17.1.tgz#e4982fe6289ce6021f8829200c1ce7406b4285ef"
+  integrity sha512-4xKI7mZJN2I6gYGEj8mq7MCIQhdgLGy4nPzcCtFlBXWo3naK+T8iuG48sX1WGCoIKWl6truJWBmZk9l9URKJHg==
+
 "@mdx-js/esbuild@^2.0.0":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@mdx-js/esbuild/-/esbuild-2.1.1.tgz#1e7102fabf1f5f64c2aa5f42147533ff4bb76af0"
