@@ -34,6 +34,7 @@ import Link from 'next/link'
 import Linkify from 'react-linkify';
 import { allNewsletters, allPosts, Post } from 'contentlayer/generated'
 import { compareDesc } from 'date-fns'
+import NowPlaying from 'components/NowPlaying'
 
 export default function HomePage({ all }: any) {
   const router = useRouter()
@@ -186,6 +187,7 @@ export default function HomePage({ all }: any) {
             <Button variant="ghost" mt={4}>Read all tweets →</Button>
           </a>
         </Box>
+        <NowPlaying />
       </Layout>
     </>
   )
