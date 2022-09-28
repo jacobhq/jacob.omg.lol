@@ -35,6 +35,8 @@ import Linkify from 'react-linkify';
 import { allNewsletters, allPosts, Post } from 'contentlayer/generated'
 import { compareDesc } from 'date-fns'
 import NowPlaying from 'components/NowPlaying'
+import { FaClock, FaLocationArrow, FaMap } from 'react-icons/fa'
+import WidgetBar from 'components/WidgetBar'
 
 export default function HomePage({ all }: any) {
   const router = useRouter()
@@ -79,6 +81,7 @@ export default function HomePage({ all }: any) {
               <Badge colorScheme="red" mt={2}>Live now</Badge>
             </Collapse>
           </Box>
+          <WidgetBar />
           <Text>Greetings, I’m Jacob, a human from planet earth. I’m a developer, creating open source software. Talk with me on Twitter, and code with me on GitHub. I’m coffee powered, so why not buy me a coffee.</Text>
           <Collapse in={streamVisible} animateOpacity>
             <Box bg={accent} p={6} borderRadius={6} mt={3}>
@@ -187,7 +190,9 @@ export default function HomePage({ all }: any) {
             <Button variant="ghost" mt={4}>Read all tweets →</Button>
           </a>
         </Box>
-        <NowPlaying />
+        <Box px={5}>
+          <WidgetBar />
+        </Box>
       </Layout>
     </>
   )
