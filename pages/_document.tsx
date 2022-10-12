@@ -25,6 +25,7 @@ export default class Document extends NextDocument {
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Main />
           <script async data-api="/_hive" src="/bee.js"></script>
+          <script defer src="https://unpkg.com/@tinybirdco/flock.js" data-host="https://api.tinybird.co" data-token="p.eyJ1IjogImVjOGEwYzE3LTExYTYtNDU2ZC05OWU3LWQzNTYzNWY0ZTUxOSIsICJpZCI6ICI4MGI0MjgxNS0wY2FkLTQ1M2YtOTNjZi1hNWQyMjc5MjY0YzYifQ.eIleOeGDfJZ-vuyi5-6zue1crU9rNYtIpAflGyFMnFs"></script>
           <NextScript />
         </body>
       </Html>
