@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "destination": "https://jhqcat.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "destination": "https://jhqcat.com/:path*",
       "permanent": true
