@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://jhqcat.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/posts/:path*",
+      "destination": "https://jhqcat.com/blog/:path*",
+      "permanent": true
+    }
+  ]
+}
